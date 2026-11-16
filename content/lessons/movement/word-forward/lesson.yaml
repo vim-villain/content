@@ -1,0 +1,24 @@
+id: lesson.word-forward
+slug: word-forward
+title: Forward by word
+group: movement
+order: 20
+difficulty: 1
+skills:
+  - "skill.motion.word"
+summary: Jump to the start of the next word.
+instructions: |
+  Move the cursor to the start of the third word.
+
+  Press w to jump forward one word. A count repeats the motion: 3w moves
+  three words at once.
+hints:
+  - w moves to the start of the next word.
+  - A count before w repeats it, so 3w moves three words.
+keyLegend:
+  - "w"
+  - "3"
+tags:
+  - "motion"
+  - "word"
+status: active

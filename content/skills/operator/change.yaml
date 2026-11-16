@@ -1,0 +1,14 @@
+id: skill.operator.change
+title: Change operator
+group: operators
+order: 30
+summary: Replace text with the change operator and a motion.
+description: |
+  The change operator deletes the affected text and enters insert mode,
+  so new text can be typed immediately. cw changes to the end of the word.
+prerequisites:
+  - "skill.operator.delete"
+tags:
+  - "operator"
+  - "change"
+status: active

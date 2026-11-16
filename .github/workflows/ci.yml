@@ -1,0 +1,61 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate, build, test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout content
+        uses: actions/checkout@v4
+        with:
+          path: content
+
+      # The engine is not published to npm during early development. CI tests
+      # content against the exact engine tag instead. Once the engine is published,
+      # this checkout can be replaced by a normal `bun install` from the registry.
+      - name: Checkout engine
+        uses: actions/checkout@v4
+        with:
+          repository: vim-villain/engine
+          ref: v0.4.0
+          path: engine
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.4
+
+      - name: Create development workspace
+        run: |
+          printf '{"private":true,"workspaces":["engine","content"]}\n' > package.json
+
+      - name: Install
+        run: bun install
+
+      - name: Build engine
+        run: bun run build
+        working-directory: engine
+
+      - name: Typecheck content
+        run: bun run typecheck
+        working-directory: content
+
+      - name: Validate content
+        run: bun run validate
+        working-directory: content
+
+      - name: Test content
+        run: bun run test
+        working-directory: content
+
+      - name: Pack check
+        run: bun run pack:check
+        working-directory: content

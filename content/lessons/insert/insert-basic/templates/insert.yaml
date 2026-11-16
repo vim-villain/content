@@ -1,0 +1,57 @@
+id: template.insert-basic.insert
+lesson: lesson.insert-basic
+order: 10
+status: active
+type: edit-to-match
+engine: ">=0.4.0 <0.5.0"
+title: Insert before a word
+description: Insert done and a space before the second word.
+notes: |
+  Two single words separated by one space, cursor at the second span. i
+  inserts before the cursor, so the literal text done plus a space lands
+  between the words and the target is word1 + space + done + space + word2.
+generate:
+  - op: pick
+    name: words
+    pool: words.common
+    count: 2
+    unique: true
+    constraints:
+      length: { min: 3, max: 7 }
+      charset: ascii-lower
+  - op: line
+    name: before
+    parts:
+      - ref: words.0
+        as: first
+      - text: " "
+      - ref: words.1
+        as: second
+  - op: line
+    name: after
+    parts:
+      - ref: words.0
+        as: first
+      - text: " done "
+      - ref: words.1
+        as: second
+  - op: buffer
+    name: initial
+    lines:
+      - ref: before
+  - op: buffer
+    name: target
+    lines:
+      - ref: after
+initial:
+  buffer: { ref: initial }
+  cursor: { line: 0, at: before.second, edge: start }
+goal:
+  kind: buffer
+  buffer: { ref: target }
+allowed:
+  preset: edit.basic
+  extra: ["d", "o", "n", "e", " "]
+solution:
+  keys: ["i", "d", "o", "n", "e", " ", "Escape"]
+par: 7

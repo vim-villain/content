@@ -1,0 +1,60 @@
+id: template.change-word.cw
+lesson: lesson.change-word
+order: 10
+status: active
+type: edit-to-match
+engine: ">=0.4.0 <0.5.0"
+title: Change the middle word
+description: Replace the second word with done.
+notes: |
+  Three single words separated by one space, cursor at the second span.
+  cw from a word start changes the whole word and leaves the surrounding
+  spaces. The typed text is literal, so the target is invariant.
+generate:
+  - op: pick
+    name: words
+    pool: words.common
+    count: 3
+    unique: true
+    constraints:
+      length: { min: 3, max: 7 }
+      charset: ascii-lower
+  - op: line
+    name: before
+    parts:
+      - ref: words.0
+        as: first
+      - text: " "
+      - ref: words.1
+        as: second
+      - text: " "
+      - ref: words.2
+        as: third
+  - op: line
+    name: after
+    parts:
+      - ref: words.0
+        as: first
+      - text: " done "
+      - ref: words.2
+        as: third
+  - op: buffer
+    name: initial
+    lines:
+      - ref: before
+  - op: buffer
+    name: target
+    lines:
+      - ref: after
+initial:
+  buffer: { ref: initial }
+  cursor: { line: 0, at: before.second, edge: start }
+goal:
+  kind: buffer
+  buffer: { ref: target }
+allowed:
+  preset: edit.word
+  extra: ["d", "o", "n", "e"]
+solution:
+  keys: ["c", "w", "d", "o", "n", "e", "Escape"]
+par: 7

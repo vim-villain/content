@@ -1,0 +1,14 @@
+- id: movement
+  title: Movement
+  description: Move the cursor without changing text.
+  order: 10
+
+- id: insert
+  title: Insert
+  description: Enter text and leave insert mode cleanly.
+  order: 20
+
+- id: operators
+  title: Operators
+  description: Delete and change text with an operator plus motion.
+  order: 30

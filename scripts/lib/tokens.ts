@@ -1,0 +1,41 @@
+/** Content-side key token classification for `move-to-target` safety. */
+export const MOTION_TOKENS: ReadonlySet<string> = new Set([
+  "h",
+  "j",
+  "k",
+  "l",
+  "0",
+  "^",
+  "$",
+  "g",
+  "G",
+  "w",
+  "b",
+  "e",
+  "W",
+  "B",
+  "E",
+  "f",
+  "t",
+  "F",
+  "T",
+  ";",
+  ",",
+  "Escape",
+  ..."123456789",
+]);
+
+/** Punctuation that is safe as an `f`/`t` target, i.e. not an editing command. */
+export const SAFE_FIND_TARGETS: ReadonlySet<string> = new Set([
+  "-",
+  "(",
+  ")",
+  "[",
+  "]",
+  "{",
+  "}",
+  '"',
+  "'",
+  ",",
+  ";",
+]);

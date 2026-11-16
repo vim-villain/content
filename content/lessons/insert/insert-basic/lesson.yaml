@@ -1,0 +1,24 @@
+id: lesson.insert-basic
+slug: insert-basic
+title: Insert text
+group: insert
+order: 20
+difficulty: 1
+skills:
+  - "skill.insert.basic"
+summary: Enter insert mode and add text before the cursor.
+instructions: |
+  Move the cursor to the start of the second word and insert the word done
+  before it, followed by a space.
+
+  Press i to insert before the cursor, type the text, then press Escape to
+  return to normal mode.
+hints:
+  - i enters insert mode before the cursor.
+  - Type the text, then press Escape to finish.
+keyLegend:
+  - "i"
+  - "Escape"
+tags:
+  - "insert"
+status: active

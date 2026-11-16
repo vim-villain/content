@@ -1,0 +1,13 @@
+id: skill.motion.word
+title: Word motions
+group: movement
+order: 20
+summary: Move between words with w, b, and e.
+description: |
+  Word motions treat runs of letters, digits, and underscores as words.
+  w moves to the next word start, b to the previous start, and e to the
+  current or next word end.
+tags:
+  - "motion"
+  - "word"
+status: active

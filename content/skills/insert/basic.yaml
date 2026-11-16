@@ -1,0 +1,11 @@
+id: skill.insert.basic
+title: Basic insert
+group: insert
+order: 20
+summary: Enter insert mode, type text, and leave with Escape.
+description: |
+  Insert mode adds text at the cursor. Use i to insert before the cursor
+  and Escape to return to normal mode when the text is complete.
+tags:
+  - "insert"
+status: active

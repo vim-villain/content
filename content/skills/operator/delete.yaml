@@ -1,0 +1,14 @@
+id: skill.operator.delete
+title: Delete operator
+group: operators
+order: 20
+summary: Remove text with the delete operator and a motion.
+description: |
+  The delete operator waits for a motion or text object, then removes the
+  affected text. dw deletes from the cursor to the start of the next word.
+prerequisites:
+  - "skill.motion.word"
+tags:
+  - "operator"
+  - "delete"
+status: active

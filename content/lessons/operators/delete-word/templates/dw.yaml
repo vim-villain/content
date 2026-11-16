@@ -1,0 +1,59 @@
+id: template.delete-word.dw
+lesson: lesson.delete-word
+order: 10
+status: active
+type: edit-to-match
+engine: ">=0.4.0 <0.5.0"
+title: Delete the middle word
+description: Remove the second word with the delete operator.
+notes: |
+  Structural facts are static: three single words separated by one space.
+  The cursor starts at the second span. dw deletes from that word start to
+  the start of the next one, so the target is word1 + space + word3.
+generate:
+  - op: pick
+    name: words
+    pool: words.common
+    count: 3
+    unique: true
+    constraints:
+      length: { min: 3, max: 7 }
+      charset: ascii-lower
+  - op: line
+    name: before
+    parts:
+      - ref: words.0
+        as: first
+      - text: " "
+      - ref: words.1
+        as: second
+      - text: " "
+      - ref: words.2
+        as: third
+  - op: line
+    name: after
+    parts:
+      - ref: words.0
+        as: first
+      - text: " "
+      - ref: words.2
+        as: third
+  - op: buffer
+    name: initial
+    lines:
+      - ref: before
+  - op: buffer
+    name: target
+    lines:
+      - ref: after
+initial:
+  buffer: { ref: initial }
+  cursor: { line: 0, at: before.second, edge: start }
+goal:
+  kind: buffer
+  buffer: { ref: target }
+allowed:
+  preset: edit.word
+solution:
+  keys: ["d", "w"]
+par: 2

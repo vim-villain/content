@@ -1,0 +1,38 @@
+schema: 1
+ids:
+  - id: lesson.change-word
+    kind: lesson
+    status: active
+  - id: lesson.delete-word
+    kind: lesson
+    status: active
+  - id: lesson.insert-basic
+    kind: lesson
+    status: active
+  - id: lesson.word-forward
+    kind: lesson
+    status: active
+  - id: skill.insert.basic
+    kind: skill
+    status: active
+  - id: skill.motion.word
+    kind: skill
+    status: active
+  - id: skill.operator.change
+    kind: skill
+    status: active
+  - id: skill.operator.delete
+    kind: skill
+    status: active
+  - id: template.change-word.cw
+    kind: template
+    status: active
+  - id: template.delete-word.dw
+    kind: template
+    status: active
+  - id: template.insert-basic.insert
+    kind: template
+    status: active
+  - id: template.word-forward.basic
+    kind: template
+    status: active

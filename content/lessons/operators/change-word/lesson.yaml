@@ -1,0 +1,27 @@
+id: lesson.change-word
+slug: change-word
+title: Change a word
+group: operators
+order: 30
+difficulty: 2
+skills:
+  - "skill.operator.change"
+summary: Replace one word and keep the surrounding text.
+instructions: |
+  Move the cursor to the start of the second word and replace it with done.
+
+  The change operator deletes the affected text and enters insert mode.
+  Combine c with w to change to the end of the word, type the new text,
+  then press Escape.
+hints:
+  - c is the change operator; it enters insert mode after deleting.
+  - w is the motion to the next word start.
+  - Press Escape when the new text is complete.
+keyLegend:
+  - "c"
+  - "w"
+  - "Escape"
+tags:
+  - "operator"
+  - "change"
+status: active

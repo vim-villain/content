@@ -1,0 +1,24 @@
+id: lesson.delete-word
+slug: delete-word
+title: Delete a word
+group: operators
+order: 20
+difficulty: 2
+skills:
+  - "skill.operator.delete"
+summary: Remove one word without touching the others.
+instructions: |
+  Move the cursor to the start of the second word, then delete that word.
+
+  The delete operator waits for a motion. Combine d with w to remove the
+  word under the cursor and the space that follows it.
+hints:
+  - d is the delete operator; it waits for a motion.
+  - w is the motion to the next word start.
+keyLegend:
+  - "d"
+  - "w"
+tags:
+  - "operator"
+  - "delete"
+status: active

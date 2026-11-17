@@ -1,0 +1,28 @@
+id: lesson.char-moves
+slug: char-moves
+title: Move by character
+group: movement
+order: 10
+difficulty: 1
+skills:
+  - "skill.motion.char"
+summary: Move the cursor one character or one line at a time.
+instructions: |
+  Move the cursor to the marked position.
+
+  Press l to move one column right. A count repeats the motion, so 5l
+  moves five columns. Press j to move down one line, and 2j moves two
+  lines down.
+hints:
+  - l moves right and h moves left.
+  - j moves down and k moves up.
+  - A count before a motion repeats it.
+keyLegend:
+  - "l"
+  - "j"
+  - "5"
+  - "2"
+tags:
+  - "motion"
+  - "char"
+status: active

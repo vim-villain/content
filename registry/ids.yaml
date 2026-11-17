@@ -1,18 +1,69 @@
 schema: 1
 ids:
+  - id: lesson.big-word
+    kind: lesson
+    status: active
   - id: lesson.change-word
+    kind: lesson
+    status: active
+  - id: lesson.char-moves
+    kind: lesson
+    status: active
+  - id: lesson.counts
     kind: lesson
     status: active
   - id: lesson.delete-word
     kind: lesson
     status: active
+  - id: lesson.file-edges
+    kind: lesson
+    status: active
+  - id: lesson.find-char
+    kind: lesson
+    status: active
+  - id: lesson.indent-line
+    kind: lesson
+    status: active
   - id: lesson.insert-basic
+    kind: lesson
+    status: active
+  - id: lesson.insert-lines
+    kind: lesson
+    status: active
+  - id: lesson.line-edges
+    kind: lesson
+    status: active
+  - id: lesson.word-back
+    kind: lesson
+    status: active
+  - id: lesson.word-end
     kind: lesson
     status: active
   - id: lesson.word-forward
     kind: lesson
     status: active
   - id: skill.insert.basic
+    kind: skill
+    status: active
+  - id: skill.insert.lines
+    kind: skill
+    status: active
+  - id: skill.motion.big-word
+    kind: skill
+    status: active
+  - id: skill.motion.char
+    kind: skill
+    status: active
+  - id: skill.motion.count
+    kind: skill
+    status: active
+  - id: skill.motion.file
+    kind: skill
+    status: active
+  - id: skill.motion.find
+    kind: skill
+    status: active
+  - id: skill.motion.line
     kind: skill
     status: active
   - id: skill.motion.word
@@ -24,13 +75,67 @@ ids:
   - id: skill.operator.delete
     kind: skill
     status: active
+  - id: skill.operator.indent
+    kind: skill
+    status: active
+  - id: template.big-word.basic
+    kind: template
+    status: active
   - id: template.change-word.cw
+    kind: template
+    status: active
+  - id: template.char-moves.horizontal
+    kind: template
+    status: active
+  - id: template.char-moves.vertical
+    kind: template
+    status: active
+  - id: template.counts.word
+    kind: template
+    status: active
+  - id: template.delete-word.dd
     kind: template
     status: active
   - id: template.delete-word.dw
     kind: template
     status: active
+  - id: template.file-edges.bottom
+    kind: template
+    status: active
+  - id: template.file-edges.top
+    kind: template
+    status: active
+  - id: template.find-char.backward
+    kind: template
+    status: active
+  - id: template.find-char.forward
+    kind: template
+    status: active
+  - id: template.indent-line.shift
+    kind: template
+    status: active
+  - id: template.insert-basic.append
+    kind: template
+    status: active
   - id: template.insert-basic.insert
+    kind: template
+    status: active
+  - id: template.insert-lines.open-above
+    kind: template
+    status: active
+  - id: template.insert-lines.open-below
+    kind: template
+    status: active
+  - id: template.line-edges.end
+    kind: template
+    status: active
+  - id: template.line-edges.start
+    kind: template
+    status: active
+  - id: template.word-back.basic
+    kind: template
+    status: active
+  - id: template.word-end.basic
     kind: template
     status: active
   - id: template.word-forward.basic

@@ -1,0 +1,14 @@
+id: skill.motion.find
+title: Find motions
+group: movement
+order: 60
+summary: Find a character on the line with f, t, F, and T.
+description: |
+  f and t search forward for a character; F and T search backward. After
+  a search, ; repeats it and , reverses the direction.
+prerequisites:
+  - "skill.motion.char"
+tags:
+  - "motion"
+  - "find"
+status: active

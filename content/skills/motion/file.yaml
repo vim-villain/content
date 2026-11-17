@@ -1,0 +1,14 @@
+id: skill.motion.file
+title: File motions
+group: movement
+order: 50
+summary: Jump to the first or last line with gg and G.
+description: |
+  File motions cross the whole buffer. gg moves to the first line and G
+  moves to the last line, keeping the cursor at column zero.
+prerequisites:
+  - "skill.motion.line"
+tags:
+  - "motion"
+  - "file"
+status: active

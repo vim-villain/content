@@ -1,0 +1,14 @@
+id: skill.motion.line
+title: Line motions
+group: movement
+order: 40
+summary: Jump within a line using 0, ^, and $.
+description: |
+  Line motions move inside the current line. 0 goes to column zero, ^
+  goes to the first non-blank character, and $ goes to the last character.
+prerequisites:
+  - "skill.motion.char"
+tags:
+  - "motion"
+  - "line"
+status: active

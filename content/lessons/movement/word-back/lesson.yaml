@@ -1,0 +1,24 @@
+id: lesson.word-back
+slug: word-back
+title: Back by word
+group: movement
+order: 30
+difficulty: 1
+skills:
+  - "skill.motion.word"
+summary: Jump to the start of the previous word.
+instructions: |
+  Move the cursor to the start of the first word.
+
+  Press b to jump back one word. A count repeats the motion: 2b moves
+  two words at once.
+hints:
+  - b moves to the start of the previous word.
+  - A count before b repeats it, so 2b moves two words.
+keyLegend:
+  - "b"
+  - "2"
+tags:
+  - "motion"
+  - "word"
+status: active

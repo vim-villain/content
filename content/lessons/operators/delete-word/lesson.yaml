@@ -1,20 +1,20 @@
 id: lesson.delete-word
 slug: delete-word
-title: Delete a word
+title: Delete text
 group: operators
 order: 20
 difficulty: 2
 skills:
   - "skill.operator.delete"
-summary: Remove one word without touching the others.
+summary: Remove a word or a whole line with the delete operator.
 instructions: |
-  Move the cursor to the start of the second word, then delete that word.
+  Remove the requested text with the delete operator.
 
-  The delete operator waits for a motion. Combine d with w to remove the
-  word under the cursor and the space that follows it.
+  Combine d with w to remove from the cursor to the next word start.
+  Press d twice to delete the current line.
 hints:
   - d is the delete operator; it waits for a motion.
-  - w is the motion to the next word start.
+  - dw deletes a word, dd deletes a line.
 keyLegend:
   - "d"
   - "w"

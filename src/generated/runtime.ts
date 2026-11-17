@@ -33,10 +33,116 @@ export const RUNTIME: CompiledRuntime = {
       "group": "insert",
       "order": 20,
       "summary": "Enter insert mode, type text, and leave with Escape.",
-      "description": "Insert mode adds text at the cursor. Use i to insert before the cursor\nand Escape to return to normal mode when the text is complete.",
-      "prerequisites": [],
+      "description": "Insert mode adds text at the cursor. Use i to insert before the cursor\nand a to append after it. A and I work at the line edges. Escape\nreturns to normal mode when the text is complete.",
+      "prerequisites": [
+        "skill.motion.char"
+      ],
       "tags": [
         "insert"
+      ]
+    },
+    {
+      "id": "skill.insert.lines",
+      "title": "Open lines",
+      "group": "insert",
+      "order": 30,
+      "summary": "Open a new line below or above with o and O.",
+      "description": "o opens a new line below the cursor and enters insert mode. O opens a\nnew line above. Type the text, then press Escape to return to normal mode.",
+      "prerequisites": [
+        "skill.insert.basic"
+      ],
+      "tags": [
+        "insert",
+        "lines"
+      ]
+    },
+    {
+      "id": "skill.motion.big-word",
+      "title": "Big-word motions",
+      "group": "movement",
+      "order": 30,
+      "summary": "Move between punctuation-joined WORDS with W, B, and E.",
+      "description": "A WORD is a run of non-blank characters, so punctuation stays attached.\nW moves to the next WORD start, B to the previous start, and E to the\ncurrent or next WORD end.",
+      "prerequisites": [
+        "skill.motion.word"
+      ],
+      "tags": [
+        "motion",
+        "big-word"
+      ]
+    },
+    {
+      "id": "skill.motion.char",
+      "title": "Character motions",
+      "group": "movement",
+      "order": 10,
+      "summary": "Move the cursor with h, j, k, and l.",
+      "description": "The four directional motions move one character or line at a time.\nh moves left, l moves right, j moves down, and k moves up.",
+      "prerequisites": [],
+      "tags": [
+        "motion",
+        "char"
+      ]
+    },
+    {
+      "id": "skill.motion.count",
+      "title": "Counts",
+      "group": "movement",
+      "order": 70,
+      "summary": "Repeat a motion with a numeric count.",
+      "description": "A count typed before a motion repeats it. 3w moves three word starts,\nand 2j moves two lines down, without pressing the motion repeatedly.",
+      "prerequisites": [
+        "skill.motion.char",
+        "skill.motion.word"
+      ],
+      "tags": [
+        "motion",
+        "count"
+      ]
+    },
+    {
+      "id": "skill.motion.file",
+      "title": "File motions",
+      "group": "movement",
+      "order": 50,
+      "summary": "Jump to the first or last line with gg and G.",
+      "description": "File motions cross the whole buffer. gg moves to the first line and G\nmoves to the last line, keeping the cursor at column zero.",
+      "prerequisites": [
+        "skill.motion.line"
+      ],
+      "tags": [
+        "motion",
+        "file"
+      ]
+    },
+    {
+      "id": "skill.motion.find",
+      "title": "Find motions",
+      "group": "movement",
+      "order": 60,
+      "summary": "Find a character on the line with f, t, F, and T.",
+      "description": "f and t search forward for a character; F and T search backward. After\na search, ; repeats it and , reverses the direction.",
+      "prerequisites": [
+        "skill.motion.char"
+      ],
+      "tags": [
+        "motion",
+        "find"
+      ]
+    },
+    {
+      "id": "skill.motion.line",
+      "title": "Line motions",
+      "group": "movement",
+      "order": 40,
+      "summary": "Jump within a line using 0, ^, and $.",
+      "description": "Line motions move inside the current line. 0 goes to column zero, ^\ngoes to the first non-blank character, and $ goes to the last character.",
+      "prerequisites": [
+        "skill.motion.char"
+      ],
+      "tags": [
+        "motion",
+        "line"
       ]
     },
     {
@@ -46,7 +152,9 @@ export const RUNTIME: CompiledRuntime = {
       "order": 20,
       "summary": "Move between words with w, b, and e.",
       "description": "Word motions treat runs of letters, digits, and underscores as words.\nw moves to the next word start, b to the previous start, and e to the\ncurrent or next word end.",
-      "prerequisites": [],
+      "prerequisites": [
+        "skill.motion.char"
+      ],
       "tags": [
         "motion",
         "word"
@@ -81,9 +189,48 @@ export const RUNTIME: CompiledRuntime = {
         "operator",
         "delete"
       ]
+    },
+    {
+      "id": "skill.operator.indent",
+      "title": "Indent operator",
+      "group": "operators",
+      "order": 40,
+      "summary": "Shift lines right or left with > and <.",
+      "description": "The indent operators shift whole lines. >> shifts the current line\nright by one shift width, and << shifts it left.",
+      "prerequisites": [
+        "skill.motion.line"
+      ],
+      "tags": [
+        "operator",
+        "indent"
+      ]
     }
   ],
   "lessons": [
+    {
+      "id": "lesson.big-word",
+      "slug": "big-word",
+      "title": "Big words",
+      "group": "movement",
+      "order": 50,
+      "difficulty": 1,
+      "skills": [
+        "skill.motion.big-word"
+      ],
+      "summary": "Move across punctuation-joined WORDS with W.",
+      "instructions": "Move the cursor to the start of the second WORD.\n\nA WORD is a run of non-blank characters, so punctuation keeps\nalpha-beta together. Press W to jump to the next WORD start.",
+      "hints": [
+        "W moves to the next WORD start.",
+        "Punctuation does not split a WORD."
+      ],
+      "keyLegend": [
+        "W"
+      ],
+      "tags": [
+        "motion",
+        "big-word"
+      ]
+    },
     {
       "id": "lesson.change-word",
       "slug": "change-word",
@@ -112,20 +259,73 @@ export const RUNTIME: CompiledRuntime = {
       ]
     },
     {
+      "id": "lesson.char-moves",
+      "slug": "char-moves",
+      "title": "Move by character",
+      "group": "movement",
+      "order": 10,
+      "difficulty": 1,
+      "skills": [
+        "skill.motion.char"
+      ],
+      "summary": "Move the cursor one character or one line at a time.",
+      "instructions": "Move the cursor to the marked position.\n\nPress l to move one column right. A count repeats the motion, so 5l\nmoves five columns. Press j to move down one line, and 2j moves two\nlines down.",
+      "hints": [
+        "l moves right and h moves left.",
+        "j moves down and k moves up.",
+        "A count before a motion repeats it."
+      ],
+      "keyLegend": [
+        "l",
+        "j",
+        "5",
+        "2"
+      ],
+      "tags": [
+        "motion",
+        "char"
+      ]
+    },
+    {
+      "id": "lesson.counts",
+      "slug": "counts",
+      "title": "Counts that add up",
+      "group": "movement",
+      "order": 90,
+      "difficulty": 2,
+      "skills": [
+        "skill.motion.count"
+      ],
+      "summary": "Repeat a motion with a numeric count.",
+      "instructions": "Move the cursor to the start of the fourth word.\n\nType a count before a motion to repeat it. 3w moves forward three word\nstarts, which is the same as pressing w three times.",
+      "hints": [
+        "A count before a motion repeats it.",
+        "3w is three word motions."
+      ],
+      "keyLegend": [
+        "3",
+        "w"
+      ],
+      "tags": [
+        "motion",
+        "count"
+      ]
+    },
+    {
       "id": "lesson.delete-word",
       "slug": "delete-word",
-      "title": "Delete a word",
+      "title": "Delete text",
       "group": "operators",
       "order": 20,
       "difficulty": 2,
       "skills": [
         "skill.operator.delete"
       ],
-      "summary": "Remove one word without touching the others.",
-      "instructions": "Move the cursor to the start of the second word, then delete that word.\n\nThe delete operator waits for a motion. Combine d with w to remove the\nword under the cursor and the space that follows it.",
+      "summary": "Remove a word or a whole line with the delete operator.",
+      "instructions": "Remove the requested text with the delete operator.\n\nCombine d with w to remove from the cursor to the next word start.\nPress d twice to delete the current line.",
       "hints": [
         "d is the delete operator; it waits for a motion.",
-        "w is the motion to the next word start."
+        "dw deletes a word, dd deletes a line."
       ],
       "keyLegend": [
         "d",
@@ -134,6 +334,81 @@ export const RUNTIME: CompiledRuntime = {
       "tags": [
         "operator",
         "delete"
+      ]
+    },
+    {
+      "id": "lesson.file-edges",
+      "slug": "file-edges",
+      "title": "File edges",
+      "group": "movement",
+      "order": 70,
+      "difficulty": 1,
+      "skills": [
+        "skill.motion.file"
+      ],
+      "summary": "Jump to the first or last line of the buffer.",
+      "instructions": "Move the cursor to the requested edge of the buffer.\n\nPress gg to go to the first line. Press G to go to the last line.",
+      "hints": [
+        "gg moves to the first line.",
+        "G moves to the last line."
+      ],
+      "keyLegend": [
+        "g",
+        "G"
+      ],
+      "tags": [
+        "motion",
+        "file"
+      ]
+    },
+    {
+      "id": "lesson.find-char",
+      "slug": "find-char",
+      "title": "Find a character",
+      "group": "movement",
+      "order": 80,
+      "difficulty": 2,
+      "skills": [
+        "skill.motion.find"
+      ],
+      "summary": "Jump to a character on the line with f and F.",
+      "instructions": "Move the cursor onto the dash in the middle of the line.\n\nPress f followed by a character to search forward. Press F followed by\na character to search backward.",
+      "hints": [
+        "f- jumps forward to the next dash.",
+        "F- jumps backward to the dash."
+      ],
+      "keyLegend": [
+        "f",
+        "F",
+        "-"
+      ],
+      "tags": [
+        "motion",
+        "find"
+      ]
+    },
+    {
+      "id": "lesson.indent-line",
+      "slug": "indent-line",
+      "title": "Indent a line",
+      "group": "operators",
+      "order": 40,
+      "difficulty": 2,
+      "skills": [
+        "skill.operator.indent"
+      ],
+      "summary": "Shift the current line right with the indent operator.",
+      "instructions": "Indent the line by two spaces.\n\nPress > twice to shift the current line right by one shift width. The\nindent operator works on whole lines, so the entire line moves.",
+      "hints": [
+        "> is the indent operator.",
+        ">> shifts the current line right."
+      ],
+      "keyLegend": [
+        ">"
+      ],
+      "tags": [
+        "operator",
+        "indent"
       ]
     },
     {
@@ -146,18 +421,121 @@ export const RUNTIME: CompiledRuntime = {
       "skills": [
         "skill.insert.basic"
       ],
-      "summary": "Enter insert mode and add text before the cursor.",
-      "instructions": "Move the cursor to the start of the second word and insert the word done\nbefore it, followed by a space.\n\nPress i to insert before the cursor, type the text, then press Escape to\nreturn to normal mode.",
+      "summary": "Enter insert mode and add text at the cursor.",
+      "instructions": "Add the word done in the requested position.\n\nPress i to insert before the cursor. Press a to append after the cursor.\nType the text, then press Escape to return to normal mode.",
       "hints": [
-        "i enters insert mode before the cursor.",
+        "i inserts before the cursor; a appends after it.",
         "Type the text, then press Escape to finish."
       ],
       "keyLegend": [
         "i",
+        "a",
         "Escape"
       ],
       "tags": [
         "insert"
+      ]
+    },
+    {
+      "id": "lesson.insert-lines",
+      "slug": "insert-lines",
+      "title": "Open a new line",
+      "group": "insert",
+      "order": 30,
+      "difficulty": 2,
+      "skills": [
+        "skill.insert.lines"
+      ],
+      "summary": "Add a new line below or above with o and O.",
+      "instructions": "Add a new line containing done between the two words.\n\nPress o to open a line below the cursor and enter insert mode. Press O\nto open a line above. Type the text, then press Escape.",
+      "hints": [
+        "o opens a line below and enters insert mode.",
+        "O opens a line above and enters insert mode.",
+        "Press Escape to finish."
+      ],
+      "keyLegend": [
+        "o",
+        "O",
+        "Escape"
+      ],
+      "tags": [
+        "insert",
+        "lines"
+      ]
+    },
+    {
+      "id": "lesson.line-edges",
+      "slug": "line-edges",
+      "title": "Line edges",
+      "group": "movement",
+      "order": 60,
+      "difficulty": 1,
+      "skills": [
+        "skill.motion.line"
+      ],
+      "summary": "Jump to the first or last character of a line.",
+      "instructions": "Move the cursor to the requested edge of the line.\n\nPress ^ to reach the first non-blank character. Press $ to reach the\nlast character.",
+      "hints": [
+        "^ moves to the first non-blank character.",
+        "$ moves to the last character."
+      ],
+      "keyLegend": [
+        "^",
+        "$"
+      ],
+      "tags": [
+        "motion",
+        "line"
+      ]
+    },
+    {
+      "id": "lesson.word-back",
+      "slug": "word-back",
+      "title": "Back by word",
+      "group": "movement",
+      "order": 30,
+      "difficulty": 1,
+      "skills": [
+        "skill.motion.word"
+      ],
+      "summary": "Jump to the start of the previous word.",
+      "instructions": "Move the cursor to the start of the first word.\n\nPress b to jump back one word. A count repeats the motion: 2b moves\ntwo words at once.",
+      "hints": [
+        "b moves to the start of the previous word.",
+        "A count before b repeats it, so 2b moves two words."
+      ],
+      "keyLegend": [
+        "b",
+        "2"
+      ],
+      "tags": [
+        "motion",
+        "word"
+      ]
+    },
+    {
+      "id": "lesson.word-end",
+      "slug": "word-end",
+      "title": "Word ends",
+      "group": "movement",
+      "order": 40,
+      "difficulty": 1,
+      "skills": [
+        "skill.motion.word"
+      ],
+      "summary": "Move to the end of a word with e.",
+      "instructions": "Move the cursor to the last character of the third word.\n\nPress e to jump to the end of the current or next word. Repeating it\nwalks forward one word end at a time.",
+      "hints": [
+        "e moves to the end of the current or next word.",
+        "Repeat e to reach later word ends."
+      ],
+      "keyLegend": [
+        "e",
+        "3"
+      ],
+      "tags": [
+        "motion",
+        "word"
       ]
     },
     {
@@ -187,6 +565,102 @@ export const RUNTIME: CompiledRuntime = {
     }
   ],
   "templates": [
+    {
+      "id": "template.big-word.basic",
+      "lessonId": "lesson.big-word",
+      "lessonSlug": "big-word",
+      "order": 10,
+      "type": "move-to-target",
+      "allowedKeys": [
+        "Escape",
+        "W"
+      ],
+      "par": 1,
+      "ops": [
+        {
+          "op": "pick",
+          "name": "words",
+          "items": [
+            "alpha-beta",
+            "gamma_delta",
+            "read-only",
+            "state_machine",
+            "north-west",
+            "copper-wire",
+            "fast_lane",
+            "green-tea",
+            "hard_drive",
+            "inner_ring",
+            "jump-start",
+            "key-board",
+            "long_run",
+            "multi_word",
+            "new_path",
+            "open_source"
+          ],
+          "count": 2,
+          "unique": true
+        },
+        {
+          "op": "line",
+          "name": "line",
+          "parts": [
+            {
+              "kind": "pick",
+              "name": "words",
+              "index": 0,
+              "as": "first"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "pick",
+              "name": "words",
+              "index": 1,
+              "as": "second"
+            }
+          ]
+        },
+        {
+          "op": "buffer",
+          "name": "buffer",
+          "lines": [
+            {
+              "kind": "line",
+              "name": "line"
+            }
+          ]
+        }
+      ],
+      "initial": {
+        "buffer": {
+          "ref": "buffer"
+        },
+        "cursor": {
+          "line": 0,
+          "at": {
+            "fact": "line",
+            "span": "first"
+          },
+          "edge": "start",
+          "offset": 0
+        }
+      },
+      "goal": {
+        "kind": "cursor",
+        "cursor": {
+          "line": 0,
+          "at": {
+            "fact": "line",
+            "span": "second"
+          },
+          "edge": "start",
+          "offset": 0
+        }
+      }
+    },
     {
       "id": "template.change-word.cw",
       "lessonId": "lesson.change-word",
@@ -333,6 +807,477 @@ export const RUNTIME: CompiledRuntime = {
           "at": {
             "fact": "before",
             "span": "second"
+          },
+          "edge": "start",
+          "offset": 0
+        }
+      },
+      "goal": {
+        "kind": "buffer",
+        "buffer": {
+          "ref": "target"
+        }
+      }
+    },
+    {
+      "id": "template.char-moves.horizontal",
+      "lessonId": "lesson.char-moves",
+      "lessonSlug": "char-moves",
+      "order": 10,
+      "type": "move-to-target",
+      "allowedKeys": [
+        "5",
+        "Escape",
+        "l"
+      ],
+      "par": 2,
+      "ops": [
+        {
+          "op": "pick",
+          "name": "words",
+          "items": [
+            "echo",
+            "golf",
+            "kilo",
+            "lima"
+          ],
+          "count": 2,
+          "unique": true
+        },
+        {
+          "op": "line",
+          "name": "line",
+          "parts": [
+            {
+              "kind": "pick",
+              "name": "words",
+              "index": 0,
+              "as": "first"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "pick",
+              "name": "words",
+              "index": 1,
+              "as": "second"
+            }
+          ]
+        },
+        {
+          "op": "buffer",
+          "name": "buffer",
+          "lines": [
+            {
+              "kind": "line",
+              "name": "line"
+            }
+          ]
+        }
+      ],
+      "initial": {
+        "buffer": {
+          "ref": "buffer"
+        },
+        "cursor": {
+          "line": 0,
+          "at": {
+            "fact": "line",
+            "span": "first"
+          },
+          "edge": "start",
+          "offset": 0
+        }
+      },
+      "goal": {
+        "kind": "cursor",
+        "cursor": {
+          "line": 0,
+          "at": {
+            "fact": "line",
+            "span": "second"
+          },
+          "edge": "start",
+          "offset": 0
+        }
+      }
+    },
+    {
+      "id": "template.char-moves.vertical",
+      "lessonId": "lesson.char-moves",
+      "lessonSlug": "char-moves",
+      "order": 20,
+      "type": "move-to-target",
+      "allowedKeys": [
+        "2",
+        "Escape",
+        "j"
+      ],
+      "par": 2,
+      "ops": [
+        {
+          "op": "pick",
+          "name": "words",
+          "items": [
+            "alpha",
+            "bravo",
+            "charlie",
+            "delta",
+            "echo",
+            "foxtrot",
+            "golf",
+            "hotel",
+            "india",
+            "juliet",
+            "kilo",
+            "lima",
+            "mango",
+            "ninja",
+            "otter",
+            "piano",
+            "queen",
+            "river",
+            "salsa",
+            "tiger",
+            "union",
+            "vivid",
+            "whale",
+            "zebra"
+          ],
+          "count": 3,
+          "unique": true
+        },
+        {
+          "op": "line",
+          "name": "line0",
+          "parts": [
+            {
+              "kind": "pick",
+              "name": "words",
+              "index": 0,
+              "as": "word"
+            }
+          ]
+        },
+        {
+          "op": "line",
+          "name": "line1",
+          "parts": [
+            {
+              "kind": "pick",
+              "name": "words",
+              "index": 1,
+              "as": "word"
+            }
+          ]
+        },
+        {
+          "op": "line",
+          "name": "line2",
+          "parts": [
+            {
+              "kind": "pick",
+              "name": "words",
+              "index": 2,
+              "as": "word"
+            }
+          ]
+        },
+        {
+          "op": "buffer",
+          "name": "buffer",
+          "lines": [
+            {
+              "kind": "line",
+              "name": "line0"
+            },
+            {
+              "kind": "line",
+              "name": "line1"
+            },
+            {
+              "kind": "line",
+              "name": "line2"
+            }
+          ]
+        }
+      ],
+      "initial": {
+        "buffer": {
+          "ref": "buffer"
+        },
+        "cursor": {
+          "line": 0,
+          "at": {
+            "fact": "line0",
+            "span": "word"
+          },
+          "edge": "start",
+          "offset": 0
+        }
+      },
+      "goal": {
+        "kind": "cursor",
+        "cursor": {
+          "line": 2,
+          "at": {
+            "fact": "line2",
+            "span": "word"
+          },
+          "edge": "start",
+          "offset": 0
+        }
+      }
+    },
+    {
+      "id": "template.counts.word",
+      "lessonId": "lesson.counts",
+      "lessonSlug": "counts",
+      "order": 10,
+      "type": "move-to-target",
+      "allowedKeys": [
+        "3",
+        "Escape",
+        "w"
+      ],
+      "par": 2,
+      "ops": [
+        {
+          "op": "pick",
+          "name": "words",
+          "items": [
+            "alpha",
+            "bravo",
+            "charlie",
+            "delta",
+            "echo",
+            "foxtrot",
+            "golf",
+            "hotel",
+            "india",
+            "juliet",
+            "kilo",
+            "lima",
+            "mango",
+            "ninja",
+            "otter",
+            "piano",
+            "queen",
+            "river",
+            "salsa",
+            "tiger",
+            "union",
+            "vivid",
+            "whale",
+            "zebra"
+          ],
+          "count": 4,
+          "unique": true
+        },
+        {
+          "op": "line",
+          "name": "line",
+          "parts": [
+            {
+              "kind": "pick",
+              "name": "words",
+              "index": 0,
+              "as": "first"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "pick",
+              "name": "words",
+              "index": 1,
+              "as": "second"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "pick",
+              "name": "words",
+              "index": 2,
+              "as": "third"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "pick",
+              "name": "words",
+              "index": 3,
+              "as": "fourth"
+            }
+          ]
+        },
+        {
+          "op": "buffer",
+          "name": "buffer",
+          "lines": [
+            {
+              "kind": "line",
+              "name": "line"
+            }
+          ]
+        }
+      ],
+      "initial": {
+        "buffer": {
+          "ref": "buffer"
+        },
+        "cursor": {
+          "line": 0,
+          "at": {
+            "fact": "line",
+            "span": "first"
+          },
+          "edge": "start",
+          "offset": 0
+        }
+      },
+      "goal": {
+        "kind": "cursor",
+        "cursor": {
+          "line": 0,
+          "at": {
+            "fact": "line",
+            "span": "fourth"
+          },
+          "edge": "start",
+          "offset": 0
+        }
+      }
+    },
+    {
+      "id": "template.delete-word.dd",
+      "lessonId": "lesson.delete-word",
+      "lessonSlug": "delete-word",
+      "order": 20,
+      "type": "edit-to-match",
+      "allowedKeys": [
+        "Escape",
+        "d"
+      ],
+      "par": 2,
+      "ops": [
+        {
+          "op": "pick",
+          "name": "words",
+          "items": [
+            "alpha",
+            "bravo",
+            "charlie",
+            "delta",
+            "echo",
+            "foxtrot",
+            "golf",
+            "hotel",
+            "india",
+            "juliet",
+            "kilo",
+            "lima",
+            "mango",
+            "ninja",
+            "otter",
+            "piano",
+            "queen",
+            "river",
+            "salsa",
+            "tiger",
+            "union",
+            "vivid",
+            "whale",
+            "zebra"
+          ],
+          "count": 3,
+          "unique": true
+        },
+        {
+          "op": "line",
+          "name": "line0",
+          "parts": [
+            {
+              "kind": "pick",
+              "name": "words",
+              "index": 0,
+              "as": "word"
+            }
+          ]
+        },
+        {
+          "op": "line",
+          "name": "line1",
+          "parts": [
+            {
+              "kind": "pick",
+              "name": "words",
+              "index": 1,
+              "as": "word"
+            }
+          ]
+        },
+        {
+          "op": "line",
+          "name": "line2",
+          "parts": [
+            {
+              "kind": "pick",
+              "name": "words",
+              "index": 2,
+              "as": "word"
+            }
+          ]
+        },
+        {
+          "op": "buffer",
+          "name": "initial",
+          "lines": [
+            {
+              "kind": "line",
+              "name": "line0"
+            },
+            {
+              "kind": "line",
+              "name": "line1"
+            },
+            {
+              "kind": "line",
+              "name": "line2"
+            }
+          ]
+        },
+        {
+          "op": "buffer",
+          "name": "target",
+          "lines": [
+            {
+              "kind": "line",
+              "name": "line0"
+            },
+            {
+              "kind": "line",
+              "name": "line2"
+            }
+          ]
+        }
+      ],
+      "initial": {
+        "buffer": {
+          "ref": "initial"
+        },
+        "cursor": {
+          "line": 1,
+          "at": {
+            "fact": "line1",
+            "span": "word"
           },
           "edge": "start",
           "offset": 0
@@ -502,6 +1447,721 @@ export const RUNTIME: CompiledRuntime = {
       }
     },
     {
+      "id": "template.file-edges.bottom",
+      "lessonId": "lesson.file-edges",
+      "lessonSlug": "file-edges",
+      "order": 20,
+      "type": "move-to-target",
+      "allowedKeys": [
+        "Escape",
+        "G",
+        "g"
+      ],
+      "par": 1,
+      "ops": [
+        {
+          "op": "pick",
+          "name": "words",
+          "items": [
+            "alpha",
+            "bravo",
+            "charlie",
+            "delta",
+            "echo",
+            "foxtrot",
+            "golf",
+            "hotel",
+            "india",
+            "juliet",
+            "kilo",
+            "lima",
+            "mango",
+            "ninja",
+            "otter",
+            "piano",
+            "queen",
+            "river",
+            "salsa",
+            "tiger",
+            "union",
+            "vivid",
+            "whale",
+            "zebra"
+          ],
+          "count": 3,
+          "unique": true
+        },
+        {
+          "op": "line",
+          "name": "line0",
+          "parts": [
+            {
+              "kind": "pick",
+              "name": "words",
+              "index": 0,
+              "as": "word"
+            }
+          ]
+        },
+        {
+          "op": "line",
+          "name": "line1",
+          "parts": [
+            {
+              "kind": "pick",
+              "name": "words",
+              "index": 1,
+              "as": "word"
+            }
+          ]
+        },
+        {
+          "op": "line",
+          "name": "line2",
+          "parts": [
+            {
+              "kind": "pick",
+              "name": "words",
+              "index": 2,
+              "as": "word"
+            }
+          ]
+        },
+        {
+          "op": "buffer",
+          "name": "buffer",
+          "lines": [
+            {
+              "kind": "line",
+              "name": "line0"
+            },
+            {
+              "kind": "line",
+              "name": "line1"
+            },
+            {
+              "kind": "line",
+              "name": "line2"
+            }
+          ]
+        }
+      ],
+      "initial": {
+        "buffer": {
+          "ref": "buffer"
+        },
+        "cursor": {
+          "line": 0,
+          "at": {
+            "fact": "line0",
+            "span": "word"
+          },
+          "edge": "start",
+          "offset": 0
+        }
+      },
+      "goal": {
+        "kind": "cursor",
+        "cursor": {
+          "line": 2,
+          "at": {
+            "fact": "line2",
+            "span": "word"
+          },
+          "edge": "start",
+          "offset": 0
+        }
+      }
+    },
+    {
+      "id": "template.file-edges.top",
+      "lessonId": "lesson.file-edges",
+      "lessonSlug": "file-edges",
+      "order": 10,
+      "type": "move-to-target",
+      "allowedKeys": [
+        "Escape",
+        "G",
+        "g"
+      ],
+      "par": 2,
+      "ops": [
+        {
+          "op": "pick",
+          "name": "words",
+          "items": [
+            "alpha",
+            "bravo",
+            "charlie",
+            "delta",
+            "echo",
+            "foxtrot",
+            "golf",
+            "hotel",
+            "india",
+            "juliet",
+            "kilo",
+            "lima",
+            "mango",
+            "ninja",
+            "otter",
+            "piano",
+            "queen",
+            "river",
+            "salsa",
+            "tiger",
+            "union",
+            "vivid",
+            "whale",
+            "zebra"
+          ],
+          "count": 3,
+          "unique": true
+        },
+        {
+          "op": "line",
+          "name": "line0",
+          "parts": [
+            {
+              "kind": "pick",
+              "name": "words",
+              "index": 0,
+              "as": "word"
+            }
+          ]
+        },
+        {
+          "op": "line",
+          "name": "line1",
+          "parts": [
+            {
+              "kind": "pick",
+              "name": "words",
+              "index": 1,
+              "as": "word"
+            }
+          ]
+        },
+        {
+          "op": "line",
+          "name": "line2",
+          "parts": [
+            {
+              "kind": "pick",
+              "name": "words",
+              "index": 2,
+              "as": "word"
+            }
+          ]
+        },
+        {
+          "op": "buffer",
+          "name": "buffer",
+          "lines": [
+            {
+              "kind": "line",
+              "name": "line0"
+            },
+            {
+              "kind": "line",
+              "name": "line1"
+            },
+            {
+              "kind": "line",
+              "name": "line2"
+            }
+          ]
+        }
+      ],
+      "initial": {
+        "buffer": {
+          "ref": "buffer"
+        },
+        "cursor": {
+          "line": 1,
+          "at": {
+            "fact": "line1",
+            "span": "word"
+          },
+          "edge": "start",
+          "offset": 0
+        }
+      },
+      "goal": {
+        "kind": "cursor",
+        "cursor": {
+          "line": 0,
+          "at": {
+            "fact": "line0",
+            "span": "word"
+          },
+          "edge": "start",
+          "offset": 0
+        }
+      }
+    },
+    {
+      "id": "template.find-char.backward",
+      "lessonId": "lesson.find-char",
+      "lessonSlug": "find-char",
+      "order": 20,
+      "type": "move-to-target",
+      "allowedKeys": [
+        "-",
+        "Escape",
+        "F"
+      ],
+      "par": 2,
+      "ops": [
+        {
+          "op": "pick",
+          "name": "words",
+          "items": [
+            "alpha",
+            "bravo",
+            "charlie",
+            "delta",
+            "echo",
+            "foxtrot",
+            "golf",
+            "hotel",
+            "india",
+            "juliet",
+            "kilo",
+            "lima",
+            "mango",
+            "ninja",
+            "otter",
+            "piano",
+            "queen",
+            "river",
+            "salsa",
+            "tiger",
+            "union",
+            "vivid",
+            "whale",
+            "zebra"
+          ],
+          "count": 2,
+          "unique": true
+        },
+        {
+          "op": "line",
+          "name": "line",
+          "parts": [
+            {
+              "kind": "pick",
+              "name": "words",
+              "index": 0,
+              "as": "first"
+            },
+            {
+              "kind": "text",
+              "text": "-",
+              "as": "dash"
+            },
+            {
+              "kind": "pick",
+              "name": "words",
+              "index": 1,
+              "as": "second"
+            }
+          ]
+        },
+        {
+          "op": "buffer",
+          "name": "buffer",
+          "lines": [
+            {
+              "kind": "line",
+              "name": "line"
+            }
+          ]
+        }
+      ],
+      "initial": {
+        "buffer": {
+          "ref": "buffer"
+        },
+        "cursor": {
+          "line": 0,
+          "at": {
+            "fact": "line",
+            "span": "second"
+          },
+          "edge": "last",
+          "offset": 0
+        }
+      },
+      "goal": {
+        "kind": "cursor",
+        "cursor": {
+          "line": 0,
+          "at": {
+            "fact": "line",
+            "span": "dash"
+          },
+          "edge": "start",
+          "offset": 0
+        }
+      }
+    },
+    {
+      "id": "template.find-char.forward",
+      "lessonId": "lesson.find-char",
+      "lessonSlug": "find-char",
+      "order": 10,
+      "type": "move-to-target",
+      "allowedKeys": [
+        "-",
+        "Escape",
+        "f"
+      ],
+      "par": 2,
+      "ops": [
+        {
+          "op": "pick",
+          "name": "words",
+          "items": [
+            "alpha",
+            "bravo",
+            "charlie",
+            "delta",
+            "echo",
+            "foxtrot",
+            "golf",
+            "hotel",
+            "india",
+            "juliet",
+            "kilo",
+            "lima",
+            "mango",
+            "ninja",
+            "otter",
+            "piano",
+            "queen",
+            "river",
+            "salsa",
+            "tiger",
+            "union",
+            "vivid",
+            "whale",
+            "zebra"
+          ],
+          "count": 2,
+          "unique": true
+        },
+        {
+          "op": "line",
+          "name": "line",
+          "parts": [
+            {
+              "kind": "pick",
+              "name": "words",
+              "index": 0,
+              "as": "first"
+            },
+            {
+              "kind": "text",
+              "text": "-",
+              "as": "dash"
+            },
+            {
+              "kind": "pick",
+              "name": "words",
+              "index": 1,
+              "as": "second"
+            }
+          ]
+        },
+        {
+          "op": "buffer",
+          "name": "buffer",
+          "lines": [
+            {
+              "kind": "line",
+              "name": "line"
+            }
+          ]
+        }
+      ],
+      "initial": {
+        "buffer": {
+          "ref": "buffer"
+        },
+        "cursor": {
+          "line": 0,
+          "at": {
+            "fact": "line",
+            "span": "first"
+          },
+          "edge": "start",
+          "offset": 0
+        }
+      },
+      "goal": {
+        "kind": "cursor",
+        "cursor": {
+          "line": 0,
+          "at": {
+            "fact": "line",
+            "span": "dash"
+          },
+          "edge": "start",
+          "offset": 0
+        }
+      }
+    },
+    {
+      "id": "template.indent-line.shift",
+      "lessonId": "lesson.indent-line",
+      "lessonSlug": "indent-line",
+      "order": 10,
+      "type": "edit-to-match",
+      "allowedKeys": [
+        ">",
+        "Escape"
+      ],
+      "par": 2,
+      "ops": [
+        {
+          "op": "pick",
+          "name": "words",
+          "items": [
+            "alpha",
+            "bravo",
+            "charlie",
+            "delta",
+            "echo",
+            "foxtrot",
+            "golf",
+            "hotel",
+            "india",
+            "juliet",
+            "kilo",
+            "lima",
+            "mango",
+            "ninja",
+            "otter",
+            "piano",
+            "queen",
+            "river",
+            "salsa",
+            "tiger",
+            "union",
+            "vivid",
+            "whale",
+            "zebra"
+          ],
+          "count": 1,
+          "unique": true
+        },
+        {
+          "op": "line",
+          "name": "line",
+          "parts": [
+            {
+              "kind": "pick",
+              "name": "words",
+              "index": 0,
+              "as": "word"
+            }
+          ]
+        },
+        {
+          "op": "line",
+          "name": "shifted",
+          "parts": [
+            {
+              "kind": "text",
+              "text": "  "
+            },
+            {
+              "kind": "pick",
+              "name": "words",
+              "index": 0,
+              "as": "word"
+            }
+          ]
+        },
+        {
+          "op": "buffer",
+          "name": "initial",
+          "lines": [
+            {
+              "kind": "line",
+              "name": "line"
+            }
+          ]
+        },
+        {
+          "op": "buffer",
+          "name": "target",
+          "lines": [
+            {
+              "kind": "line",
+              "name": "shifted"
+            }
+          ]
+        }
+      ],
+      "initial": {
+        "buffer": {
+          "ref": "initial"
+        },
+        "cursor": {
+          "line": 0,
+          "at": {
+            "fact": "line",
+            "span": "word"
+          },
+          "edge": "start",
+          "offset": 0
+        }
+      },
+      "goal": {
+        "kind": "buffer",
+        "buffer": {
+          "ref": "target"
+        }
+      }
+    },
+    {
+      "id": "template.insert-basic.append",
+      "lessonId": "lesson.insert-basic",
+      "lessonSlug": "insert-basic",
+      "order": 20,
+      "type": "edit-to-match",
+      "allowedKeys": [
+        " ",
+        "Escape",
+        "a",
+        "d",
+        "e",
+        "n",
+        "o"
+      ],
+      "par": 7,
+      "ops": [
+        {
+          "op": "pick",
+          "name": "words",
+          "items": [
+            "alpha",
+            "bravo",
+            "charlie",
+            "delta",
+            "echo",
+            "foxtrot",
+            "golf",
+            "hotel",
+            "india",
+            "juliet",
+            "kilo",
+            "lima",
+            "mango",
+            "ninja",
+            "otter",
+            "piano",
+            "queen",
+            "river",
+            "salsa",
+            "tiger",
+            "union",
+            "vivid",
+            "whale",
+            "zebra"
+          ],
+          "count": 2,
+          "unique": true
+        },
+        {
+          "op": "line",
+          "name": "before",
+          "parts": [
+            {
+              "kind": "pick",
+              "name": "words",
+              "index": 0,
+              "as": "first"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "pick",
+              "name": "words",
+              "index": 1,
+              "as": "second"
+            }
+          ]
+        },
+        {
+          "op": "line",
+          "name": "after",
+          "parts": [
+            {
+              "kind": "pick",
+              "name": "words",
+              "index": 0,
+              "as": "first"
+            },
+            {
+              "kind": "text",
+              "text": " done "
+            },
+            {
+              "kind": "pick",
+              "name": "words",
+              "index": 1,
+              "as": "second"
+            }
+          ]
+        },
+        {
+          "op": "buffer",
+          "name": "initial",
+          "lines": [
+            {
+              "kind": "line",
+              "name": "before"
+            }
+          ]
+        },
+        {
+          "op": "buffer",
+          "name": "target",
+          "lines": [
+            {
+              "kind": "line",
+              "name": "after"
+            }
+          ]
+        }
+      ],
+      "initial": {
+        "buffer": {
+          "ref": "initial"
+        },
+        "cursor": {
+          "line": 0,
+          "at": {
+            "fact": "before",
+            "span": "first"
+          },
+          "edge": "last",
+          "offset": 0
+        }
+      },
+      "goal": {
+        "kind": "buffer",
+        "buffer": {
+          "ref": "target"
+        }
+      }
+    },
+    {
       "id": "template.insert-basic.insert",
       "lessonId": "lesson.insert-basic",
       "lessonSlug": "insert-basic",
@@ -645,6 +2305,700 @@ export const RUNTIME: CompiledRuntime = {
       }
     },
     {
+      "id": "template.insert-lines.open-above",
+      "lessonId": "lesson.insert-lines",
+      "lessonSlug": "insert-lines",
+      "order": 20,
+      "type": "edit-to-match",
+      "allowedKeys": [
+        "Escape",
+        "O",
+        "d",
+        "e",
+        "n",
+        "o"
+      ],
+      "par": 6,
+      "ops": [
+        {
+          "op": "pick",
+          "name": "words",
+          "items": [
+            "alpha",
+            "bravo",
+            "charlie",
+            "delta",
+            "echo",
+            "foxtrot",
+            "golf",
+            "hotel",
+            "india",
+            "juliet",
+            "kilo",
+            "lima",
+            "mango",
+            "ninja",
+            "otter",
+            "piano",
+            "queen",
+            "river",
+            "salsa",
+            "tiger",
+            "union",
+            "vivid",
+            "whale",
+            "zebra"
+          ],
+          "count": 2,
+          "unique": true
+        },
+        {
+          "op": "line",
+          "name": "line0",
+          "parts": [
+            {
+              "kind": "pick",
+              "name": "words",
+              "index": 0,
+              "as": "word"
+            }
+          ]
+        },
+        {
+          "op": "line",
+          "name": "line1",
+          "parts": [
+            {
+              "kind": "pick",
+              "name": "words",
+              "index": 1,
+              "as": "word"
+            }
+          ]
+        },
+        {
+          "op": "buffer",
+          "name": "initial",
+          "lines": [
+            {
+              "kind": "line",
+              "name": "line0"
+            },
+            {
+              "kind": "line",
+              "name": "line1"
+            }
+          ]
+        },
+        {
+          "op": "buffer",
+          "name": "target",
+          "lines": [
+            {
+              "kind": "line",
+              "name": "line0"
+            },
+            {
+              "kind": "text",
+              "text": "done"
+            },
+            {
+              "kind": "line",
+              "name": "line1"
+            }
+          ]
+        }
+      ],
+      "initial": {
+        "buffer": {
+          "ref": "initial"
+        },
+        "cursor": {
+          "line": 1,
+          "at": {
+            "fact": "line1",
+            "span": "word"
+          },
+          "edge": "start",
+          "offset": 0
+        }
+      },
+      "goal": {
+        "kind": "buffer",
+        "buffer": {
+          "ref": "target"
+        }
+      }
+    },
+    {
+      "id": "template.insert-lines.open-below",
+      "lessonId": "lesson.insert-lines",
+      "lessonSlug": "insert-lines",
+      "order": 10,
+      "type": "edit-to-match",
+      "allowedKeys": [
+        "Escape",
+        "d",
+        "e",
+        "n",
+        "o"
+      ],
+      "par": 6,
+      "ops": [
+        {
+          "op": "pick",
+          "name": "words",
+          "items": [
+            "alpha",
+            "bravo",
+            "charlie",
+            "delta",
+            "echo",
+            "foxtrot",
+            "golf",
+            "hotel",
+            "india",
+            "juliet",
+            "kilo",
+            "lima",
+            "mango",
+            "ninja",
+            "otter",
+            "piano",
+            "queen",
+            "river",
+            "salsa",
+            "tiger",
+            "union",
+            "vivid",
+            "whale",
+            "zebra"
+          ],
+          "count": 2,
+          "unique": true
+        },
+        {
+          "op": "line",
+          "name": "line0",
+          "parts": [
+            {
+              "kind": "pick",
+              "name": "words",
+              "index": 0,
+              "as": "word"
+            }
+          ]
+        },
+        {
+          "op": "line",
+          "name": "line1",
+          "parts": [
+            {
+              "kind": "pick",
+              "name": "words",
+              "index": 1,
+              "as": "word"
+            }
+          ]
+        },
+        {
+          "op": "buffer",
+          "name": "initial",
+          "lines": [
+            {
+              "kind": "line",
+              "name": "line0"
+            },
+            {
+              "kind": "line",
+              "name": "line1"
+            }
+          ]
+        },
+        {
+          "op": "buffer",
+          "name": "target",
+          "lines": [
+            {
+              "kind": "line",
+              "name": "line0"
+            },
+            {
+              "kind": "text",
+              "text": "done"
+            },
+            {
+              "kind": "line",
+              "name": "line1"
+            }
+          ]
+        }
+      ],
+      "initial": {
+        "buffer": {
+          "ref": "initial"
+        },
+        "cursor": {
+          "line": 0,
+          "at": {
+            "fact": "line0",
+            "span": "word"
+          },
+          "edge": "start",
+          "offset": 0
+        }
+      },
+      "goal": {
+        "kind": "buffer",
+        "buffer": {
+          "ref": "target"
+        }
+      }
+    },
+    {
+      "id": "template.line-edges.end",
+      "lessonId": "lesson.line-edges",
+      "lessonSlug": "line-edges",
+      "order": 20,
+      "type": "move-to-target",
+      "allowedKeys": [
+        "$",
+        "Escape"
+      ],
+      "par": 1,
+      "ops": [
+        {
+          "op": "pick",
+          "name": "words",
+          "items": [
+            "alpha",
+            "bravo",
+            "charlie",
+            "delta",
+            "echo",
+            "foxtrot",
+            "golf",
+            "hotel",
+            "india",
+            "juliet",
+            "kilo",
+            "lima",
+            "mango",
+            "ninja",
+            "otter",
+            "piano",
+            "queen",
+            "river",
+            "salsa",
+            "tiger",
+            "union",
+            "vivid",
+            "whale",
+            "zebra"
+          ],
+          "count": 2,
+          "unique": true
+        },
+        {
+          "op": "line",
+          "name": "line",
+          "parts": [
+            {
+              "kind": "text",
+              "text": "  "
+            },
+            {
+              "kind": "pick",
+              "name": "words",
+              "index": 0,
+              "as": "first"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "pick",
+              "name": "words",
+              "index": 1,
+              "as": "second"
+            }
+          ]
+        },
+        {
+          "op": "buffer",
+          "name": "buffer",
+          "lines": [
+            {
+              "kind": "line",
+              "name": "line"
+            }
+          ]
+        }
+      ],
+      "initial": {
+        "buffer": {
+          "ref": "buffer"
+        },
+        "cursor": {
+          "line": 0,
+          "col": 0,
+          "edge": "start",
+          "offset": 0
+        }
+      },
+      "goal": {
+        "kind": "cursor",
+        "cursor": {
+          "line": 0,
+          "at": {
+            "fact": "line",
+            "span": "second"
+          },
+          "edge": "last",
+          "offset": 0
+        }
+      }
+    },
+    {
+      "id": "template.line-edges.start",
+      "lessonId": "lesson.line-edges",
+      "lessonSlug": "line-edges",
+      "order": 10,
+      "type": "move-to-target",
+      "allowedKeys": [
+        "Escape",
+        "^"
+      ],
+      "par": 1,
+      "ops": [
+        {
+          "op": "pick",
+          "name": "words",
+          "items": [
+            "alpha",
+            "bravo",
+            "charlie",
+            "delta",
+            "echo",
+            "foxtrot",
+            "golf",
+            "hotel",
+            "india",
+            "juliet",
+            "kilo",
+            "lima",
+            "mango",
+            "ninja",
+            "otter",
+            "piano",
+            "queen",
+            "river",
+            "salsa",
+            "tiger",
+            "union",
+            "vivid",
+            "whale",
+            "zebra"
+          ],
+          "count": 2,
+          "unique": true
+        },
+        {
+          "op": "line",
+          "name": "line",
+          "parts": [
+            {
+              "kind": "text",
+              "text": "  "
+            },
+            {
+              "kind": "pick",
+              "name": "words",
+              "index": 0,
+              "as": "first"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "pick",
+              "name": "words",
+              "index": 1,
+              "as": "second"
+            }
+          ]
+        },
+        {
+          "op": "buffer",
+          "name": "buffer",
+          "lines": [
+            {
+              "kind": "line",
+              "name": "line"
+            }
+          ]
+        }
+      ],
+      "initial": {
+        "buffer": {
+          "ref": "buffer"
+        },
+        "cursor": {
+          "line": 0,
+          "at": {
+            "fact": "line",
+            "span": "second"
+          },
+          "edge": "last",
+          "offset": 0
+        }
+      },
+      "goal": {
+        "kind": "cursor",
+        "cursor": {
+          "line": 0,
+          "at": {
+            "fact": "line",
+            "span": "first"
+          },
+          "edge": "start",
+          "offset": 0
+        }
+      }
+    },
+    {
+      "id": "template.word-back.basic",
+      "lessonId": "lesson.word-back",
+      "lessonSlug": "word-back",
+      "order": 10,
+      "type": "move-to-target",
+      "allowedKeys": [
+        "2",
+        "Escape",
+        "b"
+      ],
+      "par": 2,
+      "ops": [
+        {
+          "op": "pick",
+          "name": "words",
+          "items": [
+            "alpha",
+            "bravo",
+            "charlie",
+            "delta",
+            "echo",
+            "foxtrot",
+            "golf",
+            "hotel",
+            "india",
+            "juliet",
+            "kilo",
+            "lima",
+            "mango",
+            "ninja",
+            "otter",
+            "piano",
+            "queen",
+            "river",
+            "salsa",
+            "tiger",
+            "union",
+            "vivid",
+            "whale",
+            "zebra"
+          ],
+          "count": 3,
+          "unique": true
+        },
+        {
+          "op": "line",
+          "name": "line",
+          "parts": [
+            {
+              "kind": "pick",
+              "name": "words",
+              "index": 0,
+              "as": "first"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "pick",
+              "name": "words",
+              "index": 1,
+              "as": "second"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "pick",
+              "name": "words",
+              "index": 2,
+              "as": "third"
+            }
+          ]
+        },
+        {
+          "op": "buffer",
+          "name": "buffer",
+          "lines": [
+            {
+              "kind": "line",
+              "name": "line"
+            }
+          ]
+        }
+      ],
+      "initial": {
+        "buffer": {
+          "ref": "buffer"
+        },
+        "cursor": {
+          "line": 0,
+          "at": {
+            "fact": "line",
+            "span": "third"
+          },
+          "edge": "start",
+          "offset": 0
+        }
+      },
+      "goal": {
+        "kind": "cursor",
+        "cursor": {
+          "line": 0,
+          "at": {
+            "fact": "line",
+            "span": "first"
+          },
+          "edge": "start",
+          "offset": 0
+        }
+      }
+    },
+    {
+      "id": "template.word-end.basic",
+      "lessonId": "lesson.word-end",
+      "lessonSlug": "word-end",
+      "order": 10,
+      "type": "move-to-target",
+      "allowedKeys": [
+        "3",
+        "Escape",
+        "e"
+      ],
+      "par": 3,
+      "ops": [
+        {
+          "op": "pick",
+          "name": "words",
+          "items": [
+            "alpha",
+            "bravo",
+            "charlie",
+            "delta",
+            "echo",
+            "foxtrot",
+            "golf",
+            "hotel",
+            "india",
+            "juliet",
+            "kilo",
+            "lima",
+            "mango",
+            "ninja",
+            "otter",
+            "piano",
+            "queen",
+            "river",
+            "salsa",
+            "tiger",
+            "union",
+            "vivid",
+            "whale",
+            "zebra"
+          ],
+          "count": 3,
+          "unique": true
+        },
+        {
+          "op": "line",
+          "name": "line",
+          "parts": [
+            {
+              "kind": "pick",
+              "name": "words",
+              "index": 0,
+              "as": "first"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "pick",
+              "name": "words",
+              "index": 1,
+              "as": "second"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "pick",
+              "name": "words",
+              "index": 2,
+              "as": "third"
+            }
+          ]
+        },
+        {
+          "op": "buffer",
+          "name": "buffer",
+          "lines": [
+            {
+              "kind": "line",
+              "name": "line"
+            }
+          ]
+        }
+      ],
+      "initial": {
+        "buffer": {
+          "ref": "buffer"
+        },
+        "cursor": {
+          "line": 0,
+          "at": {
+            "fact": "line",
+            "span": "first"
+          },
+          "edge": "start",
+          "offset": 0
+        }
+      },
+      "goal": {
+        "kind": "cursor",
+        "cursor": {
+          "line": 0,
+          "at": {
+            "fact": "line",
+            "span": "third"
+          },
+          "edge": "last",
+          "offset": 0
+        }
+      }
+    },
+    {
       "id": "template.word-forward.basic",
       "lessonId": "lesson.word-forward",
       "lessonSlug": "word-forward",
@@ -783,4 +3137,4 @@ export const COMPATIBILITY: CompiledCompatibility = {
   ]
 };
 
-export const CONTENT_BUILD_ID = "6ab6428c1245311f15b90b761f2e57d5bb625033fa585a18655a80480d2a27b4";
+export const CONTENT_BUILD_ID = "c413a43e55a08ffcd72e6b43a09009fed46243ffb1d3cbcd051bad0590da29dd";

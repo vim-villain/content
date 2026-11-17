@@ -1,0 +1,44 @@
+id: template.line-edges.start
+lesson: lesson.line-edges
+order: 10
+status: active
+type: move-to-target
+engine: ">=0.4.0 <0.5.0"
+title: First non-blank
+description: Move from the end of an indented line to its first non-blank character.
+notes: |
+  The line starts with two spaces, so the first span starts at column 2
+  and the goal is column 2. The cursor starts at the end of the line, and
+  ^ from there lands on the first non-blank character.
+generate:
+  - op: pick
+    name: words
+    pool: words.common
+    count: 2
+    unique: true
+    constraints:
+      length: { min: 3, max: 7 }
+      charset: ascii-lower
+  - op: line
+    name: line
+    parts:
+      - text: "  "
+      - ref: words.0
+        as: first
+      - text: " "
+      - ref: words.1
+        as: second
+  - op: buffer
+    name: buffer
+    lines:
+      - ref: line
+initial:
+  buffer: { ref: buffer }
+  cursor: { line: 0, at: line.second, edge: last }
+goal:
+  kind: cursor
+  cursor: { line: 0, at: line.first, edge: start }
+allowed: ["^", "Escape"]
+solution:
+  keys: ["^"]
+par: 1

@@ -1,0 +1,14 @@
+id: skill.operator.indent
+title: Indent operator
+group: operators
+order: 40
+summary: Shift lines right or left with > and <.
+description: |
+  The indent operators shift whole lines. >> shifts the current line
+  right by one shift width, and << shifts it left.
+prerequisites:
+  - "skill.motion.line"
+tags:
+  - "operator"
+  - "indent"
+status: active

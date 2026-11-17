@@ -1,0 +1,25 @@
+id: lesson.find-char
+slug: find-char
+title: Find a character
+group: movement
+order: 80
+difficulty: 2
+skills:
+  - "skill.motion.find"
+summary: Jump to a character on the line with f and F.
+instructions: |
+  Move the cursor onto the dash in the middle of the line.
+
+  Press f followed by a character to search forward. Press F followed by
+  a character to search backward.
+hints:
+  - f- jumps forward to the next dash.
+  - F- jumps backward to the dash.
+keyLegend:
+  - "f"
+  - "F"
+  - "-"
+tags:
+  - "motion"
+  - "find"
+status: active

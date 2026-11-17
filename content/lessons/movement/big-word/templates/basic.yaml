@@ -1,0 +1,40 @@
+id: template.big-word.basic
+lesson: lesson.big-word
+order: 10
+status: active
+type: move-to-target
+engine: ">=0.4.0 <0.5.0"
+title: Next WORD start
+description: Move from the first punctuation-joined WORD to the second.
+notes: |
+  Two big-word pool items separated by one space. Both items are single
+  WORDS because they contain no spaces, so W from the first start lands on
+  the second start regardless of the items chosen.
+generate:
+  - op: pick
+    name: words
+    pool: words.big
+    count: 2
+    unique: true
+  - op: line
+    name: line
+    parts:
+      - ref: words.0
+        as: first
+      - text: " "
+      - ref: words.1
+        as: second
+  - op: buffer
+    name: buffer
+    lines:
+      - ref: line
+initial:
+  buffer: { ref: buffer }
+  cursor: { line: 0, at: line.first, edge: start }
+goal:
+  kind: cursor
+  cursor: { line: 0, at: line.second, edge: start }
+allowed: ["W", "Escape"]
+solution:
+  keys: ["W"]
+par: 1

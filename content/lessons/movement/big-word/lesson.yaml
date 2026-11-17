@@ -1,0 +1,23 @@
+id: lesson.big-word
+slug: big-word
+title: Big words
+group: movement
+order: 50
+difficulty: 1
+skills:
+  - "skill.motion.big-word"
+summary: Move across punctuation-joined WORDS with W.
+instructions: |
+  Move the cursor to the start of the second WORD.
+
+  A WORD is a run of non-blank characters, so punctuation keeps
+  alpha-beta together. Press W to jump to the next WORD start.
+hints:
+  - W moves to the next WORD start.
+  - Punctuation does not split a WORD.
+keyLegend:
+  - "W"
+tags:
+  - "motion"
+  - "big-word"
+status: active

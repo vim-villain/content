@@ -1,0 +1,24 @@
+id: lesson.line-edges
+slug: line-edges
+title: Line edges
+group: movement
+order: 60
+difficulty: 1
+skills:
+  - "skill.motion.line"
+summary: Jump to the first or last character of a line.
+instructions: |
+  Move the cursor to the requested edge of the line.
+
+  Press ^ to reach the first non-blank character. Press $ to reach the
+  last character.
+hints:
+  - ^ moves to the first non-blank character.
+  - $ moves to the last character.
+keyLegend:
+  - "^"
+  - "$"
+tags:
+  - "motion"
+  - "line"
+status: active

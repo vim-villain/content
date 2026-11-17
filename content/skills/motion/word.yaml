@@ -7,6 +7,8 @@ description: |
   Word motions treat runs of letters, digits, and underscores as words.
   w moves to the next word start, b to the previous start, and e to the
   current or next word end.
+prerequisites:
+  - "skill.motion.char"
 tags:
   - "motion"
   - "word"

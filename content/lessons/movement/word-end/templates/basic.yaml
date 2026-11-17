@@ -1,0 +1,46 @@
+id: template.word-end.basic
+lesson: lesson.word-end
+order: 10
+status: active
+type: move-to-target
+engine: ">=0.4.0 <0.5.0"
+title: Third word end
+description: Move from the first word start to the last character of the third word.
+notes: |
+  Every generated line is three single-word items separated by one space.
+  The cursor starts at the first span and the goal is the third span edge
+  last, so e e e is invariant under word substitution.
+generate:
+  - op: pick
+    name: words
+    pool: words.common
+    count: 3
+    unique: true
+    constraints:
+      length: { min: 3, max: 7 }
+      charset: ascii-lower
+  - op: line
+    name: line
+    parts:
+      - ref: words.0
+        as: first
+      - text: " "
+      - ref: words.1
+        as: second
+      - text: " "
+      - ref: words.2
+        as: third
+  - op: buffer
+    name: buffer
+    lines:
+      - ref: line
+initial:
+  buffer: { ref: buffer }
+  cursor: { line: 0, at: line.first, edge: start }
+goal:
+  kind: cursor
+  cursor: { line: 0, at: line.third, edge: last }
+allowed: ["e", "3", "Escape"]
+solution:
+  keys: ["e", "e", "e"]
+par: 3

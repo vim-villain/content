@@ -1,0 +1,46 @@
+id: template.word-back.basic
+lesson: lesson.word-back
+order: 10
+status: active
+type: move-to-target
+engine: ">=0.4.0 <0.5.0"
+title: Back to the first word
+description: Move from the third word start to the first word start.
+notes: |
+  Every generated line is three single-word items separated by one space.
+  The cursor starts at the third span and the goal is the first span start,
+  so b b is invariant under word substitution.
+generate:
+  - op: pick
+    name: words
+    pool: words.common
+    count: 3
+    unique: true
+    constraints:
+      length: { min: 3, max: 7 }
+      charset: ascii-lower
+  - op: line
+    name: line
+    parts:
+      - ref: words.0
+        as: first
+      - text: " "
+      - ref: words.1
+        as: second
+      - text: " "
+      - ref: words.2
+        as: third
+  - op: buffer
+    name: buffer
+    lines:
+      - ref: line
+initial:
+  buffer: { ref: buffer }
+  cursor: { line: 0, at: line.third, edge: start }
+goal:
+  kind: cursor
+  cursor: { line: 0, at: line.first, edge: start }
+allowed: ["b", "2", "Escape"]
+solution:
+  keys: ["b", "b"]
+par: 2

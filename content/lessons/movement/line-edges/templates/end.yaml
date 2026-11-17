@@ -1,0 +1,44 @@
+id: template.line-edges.end
+lesson: lesson.line-edges
+order: 20
+status: active
+type: move-to-target
+engine: ">=0.4.0 <0.5.0"
+title: Last character
+description: Move from column zero of an indented line to its last character.
+notes: |
+  The line starts with two spaces and ends with the second span. The
+  cursor starts at column 0 and the goal is the last character, so $ is
+  invariant under word substitution.
+generate:
+  - op: pick
+    name: words
+    pool: words.common
+    count: 2
+    unique: true
+    constraints:
+      length: { min: 3, max: 7 }
+      charset: ascii-lower
+  - op: line
+    name: line
+    parts:
+      - text: "  "
+      - ref: words.0
+        as: first
+      - text: " "
+      - ref: words.1
+        as: second
+  - op: buffer
+    name: buffer
+    lines:
+      - ref: line
+initial:
+  buffer: { ref: buffer }
+  cursor: { line: 0, col: 0 }
+goal:
+  kind: cursor
+  cursor: { line: 0, at: line.second, edge: last }
+allowed: ["$", "Escape"]
+solution:
+  keys: ["$"]
+par: 1

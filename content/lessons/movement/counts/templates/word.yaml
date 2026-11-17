@@ -1,0 +1,49 @@
+id: template.counts.word
+lesson: lesson.counts
+order: 10
+status: active
+type: move-to-target
+engine: ">=0.4.0 <0.5.0"
+title: Three words forward
+description: Move from the first word start to the fourth word start with a count.
+notes: |
+  Every generated line is four single-word items separated by one space.
+  The cursor starts at the first span and the goal is the fourth span
+  start, so 3w is invariant under word substitution.
+generate:
+  - op: pick
+    name: words
+    pool: words.common
+    count: 4
+    unique: true
+    constraints:
+      length: { min: 3, max: 7 }
+      charset: ascii-lower
+  - op: line
+    name: line
+    parts:
+      - ref: words.0
+        as: first
+      - text: " "
+      - ref: words.1
+        as: second
+      - text: " "
+      - ref: words.2
+        as: third
+      - text: " "
+      - ref: words.3
+        as: fourth
+  - op: buffer
+    name: buffer
+    lines:
+      - ref: line
+initial:
+  buffer: { ref: buffer }
+  cursor: { line: 0, at: line.first, edge: start }
+goal:
+  kind: cursor
+  cursor: { line: 0, at: line.fourth, edge: start }
+allowed: ["3", "w", "Escape"]
+solution:
+  keys: ["3", "w"]
+par: 2

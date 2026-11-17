@@ -1,0 +1,56 @@
+id: template.insert-basic.append
+lesson: lesson.insert-basic
+order: 20
+status: active
+type: edit-to-match
+engine: ">=0.4.0 <0.5.0"
+title: Append after a word
+description: Append done and surrounding spaces after the first word.
+notes: |
+  Two single words separated by one space. The cursor starts on the last
+  character of the first word. a appends after the cursor, so the typed
+  text done lands between the words and the target is word1 + space +
+  done + space + word2.
+generate:
+  - op: pick
+    name: words
+    pool: words.common
+    count: 2
+    unique: true
+    constraints:
+      length: { min: 3, max: 7 }
+      charset: ascii-lower
+  - op: line
+    name: before
+    parts:
+      - ref: words.0
+        as: first
+      - text: " "
+      - ref: words.1
+        as: second
+  - op: line
+    name: after
+    parts:
+      - ref: words.0
+        as: first
+      - text: " done "
+      - ref: words.1
+        as: second
+  - op: buffer
+    name: initial
+    lines:
+      - ref: before
+  - op: buffer
+    name: target
+    lines:
+      - ref: after
+initial:
+  buffer: { ref: initial }
+  cursor: { line: 0, at: before.first, edge: last }
+goal:
+  kind: buffer
+  buffer: { ref: target }
+allowed: ["a", " ", "d", "o", "n", "e", "Escape"]
+solution:
+  keys: ["a", " ", "d", "o", "n", "e", "Escape"]
+par: 7

@@ -46,6 +46,19 @@ describe("reference solutions", () => {
       }
     }
   });
+
+  test("initial cursors survive initialState without clamping", () => {
+    for (const template of VALIDATION) {
+      for (const seed of NORMAL_SEEDS) {
+        const instance = generateInstance(template.templateId, seed);
+        const state = initialState({
+          buffer: [...instance.buffer],
+          cursor: { ...instance.cursor },
+        });
+        expect(state.cursor).toEqual(instance.cursor);
+      }
+    }
+  });
 });
 
 describe("deterministic generation", () => {

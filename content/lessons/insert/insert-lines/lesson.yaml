@@ -1,0 +1,26 @@
+id: lesson.insert-lines
+slug: insert-lines
+title: Open a new line
+group: insert
+order: 30
+difficulty: 2
+skills:
+  - "skill.insert.lines"
+summary: Add a new line below or above with o and O.
+instructions: |
+  Add a new line containing done between the two words.
+
+  Press o to open a line below the cursor and enter insert mode. Press O
+  to open a line above. Type the text, then press Escape.
+hints:
+  - o opens a line below and enters insert mode.
+  - O opens a line above and enters insert mode.
+  - Press Escape to finish.
+keyLegend:
+  - "o"
+  - "O"
+  - "Escape"
+tags:
+  - "insert"
+  - "lines"
+status: active

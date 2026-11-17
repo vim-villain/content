@@ -1,0 +1,23 @@
+id: lesson.indent-line
+slug: indent-line
+title: Indent a line
+group: operators
+order: 40
+difficulty: 2
+skills:
+  - "skill.operator.indent"
+summary: Shift the current line right with the indent operator.
+instructions: |
+  Indent the line by two spaces.
+
+  Press > twice to shift the current line right by one shift width. The
+  indent operator works on whole lines, so the entire line moves.
+hints:
+  - "> is the indent operator."
+  - ">> shifts the current line right."
+keyLegend:
+  - ">"
+tags:
+  - "operator"
+  - "indent"
+status: active

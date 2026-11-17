@@ -8,9 +8,10 @@ and a server-chosen seed, then judges the final state.
 The design is recorded in [ARCHITECTURE.md](./ARCHITECTURE.md). Read it before adding
 content or changing the runtime API.
 
-**Status: 0.1.0 vertical slice.** Four lessons across movement, insert, and operators,
-targeting `@vim-villain/engine` 0.4.0. The remaining curriculum is drafted in the
-architecture and will ship as later engine slices land.
+**Status: 0.1.0 first publish.** Fourteen lessons, twenty-one templates, and twelve
+skills across movement, insert, and operators, targeting `@vim-villain/engine` 0.4.0.
+Text objects, visual mode, registers, and history are drafted in the architecture and
+will ship as later engine slices land.
 
 ## Install
 

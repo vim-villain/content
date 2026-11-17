@@ -1,0 +1,14 @@
+id: skill.insert.lines
+title: Open lines
+group: insert
+order: 30
+summary: Open a new line below or above with o and O.
+description: |
+  o opens a new line below the cursor and enters insert mode. O opens a
+  new line above. Type the text, then press Escape to return to normal mode.
+prerequisites:
+  - "skill.insert.basic"
+tags:
+  - "insert"
+  - "lines"
+status: active

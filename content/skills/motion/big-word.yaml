@@ -1,0 +1,15 @@
+id: skill.motion.big-word
+title: Big-word motions
+group: movement
+order: 30
+summary: Move between punctuation-joined WORDS with W, B, and E.
+description: |
+  A WORD is a run of non-blank characters, so punctuation stays attached.
+  W moves to the next WORD start, B to the previous start, and E to the
+  current or next WORD end.
+prerequisites:
+  - "skill.motion.word"
+tags:
+  - "motion"
+  - "big-word"
+status: active

@@ -1,0 +1,24 @@
+id: lesson.counts
+slug: counts
+title: Counts that add up
+group: movement
+order: 90
+difficulty: 2
+skills:
+  - "skill.motion.count"
+summary: Repeat a motion with a numeric count.
+instructions: |
+  Move the cursor to the start of the fourth word.
+
+  Type a count before a motion to repeat it. 3w moves forward three word
+  starts, which is the same as pressing w three times.
+hints:
+  - A count before a motion repeats it.
+  - 3w is three word motions.
+keyLegend:
+  - "3"
+  - "w"
+tags:
+  - "motion"
+  - "count"
+status: active

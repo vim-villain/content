@@ -1,0 +1,15 @@
+id: skill.motion.count
+title: Counts
+group: movement
+order: 70
+summary: Repeat a motion with a numeric count.
+description: |
+  A count typed before a motion repeats it. 3w moves three word starts,
+  and 2j moves two lines down, without pressing the motion repeatedly.
+prerequisites:
+  - "skill.motion.char"
+  - "skill.motion.word"
+tags:
+  - "motion"
+  - "count"
+status: active

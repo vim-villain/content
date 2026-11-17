@@ -1,0 +1,50 @@
+id: template.indent-line.shift
+lesson: lesson.indent-line
+order: 10
+status: active
+type: edit-to-match
+engine: ">=0.4.0 <0.5.0"
+title: Shift right
+description: Indent the only line by two spaces with the indent operator.
+notes: |
+  One single-word line. The cursor starts at the word and >> shifts the
+  whole line right by the fixed shift width of two spaces, so the target
+  is two spaces followed by the same word.
+generate:
+  - op: pick
+    name: words
+    pool: words.common
+    count: 1
+    unique: true
+    constraints:
+      length: { min: 3, max: 7 }
+      charset: ascii-lower
+  - op: line
+    name: line
+    parts:
+      - ref: words.0
+        as: word
+  - op: line
+    name: shifted
+    parts:
+      - text: "  "
+      - ref: words.0
+        as: word
+  - op: buffer
+    name: initial
+    lines:
+      - ref: line
+  - op: buffer
+    name: target
+    lines:
+      - ref: shifted
+initial:
+  buffer: { ref: initial }
+  cursor: { line: 0, at: line.word, edge: start }
+goal:
+  kind: buffer
+  buffer: { ref: target }
+allowed: [">", "Escape"]
+solution:
+  keys: [">", ">"]
+par: 2

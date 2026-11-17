@@ -1,0 +1,43 @@
+id: template.char-moves.horizontal
+lesson: lesson.char-moves
+order: 10
+status: active
+type: move-to-target
+engine: ">=0.4.0 <0.5.0"
+title: Five columns right
+description: Move from the start of the first word to the start of the second.
+notes: |
+  Both words are exactly four letters, so the second span always starts at
+  column 5. The cursor starts at column 0 and the goal is column 5, so 5l
+  is invariant under word substitution.
+generate:
+  - op: pick
+    name: words
+    pool: words.common
+    count: 2
+    unique: true
+    constraints:
+      length: { min: 4, max: 4 }
+      charset: ascii-lower
+  - op: line
+    name: line
+    parts:
+      - ref: words.0
+        as: first
+      - text: " "
+      - ref: words.1
+        as: second
+  - op: buffer
+    name: buffer
+    lines:
+      - ref: line
+initial:
+  buffer: { ref: buffer }
+  cursor: { line: 0, at: line.first, edge: start }
+goal:
+  kind: cursor
+  cursor: { line: 0, at: line.second, edge: start }
+allowed: ["5", "l", "Escape"]
+solution:
+  keys: ["5", "l"]
+par: 2

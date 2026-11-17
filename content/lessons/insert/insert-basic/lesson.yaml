@@ -6,18 +6,18 @@ order: 20
 difficulty: 1
 skills:
   - "skill.insert.basic"
-summary: Enter insert mode and add text before the cursor.
+summary: Enter insert mode and add text at the cursor.
 instructions: |
-  Move the cursor to the start of the second word and insert the word done
-  before it, followed by a space.
+  Add the word done in the requested position.
 
-  Press i to insert before the cursor, type the text, then press Escape to
-  return to normal mode.
+  Press i to insert before the cursor. Press a to append after the cursor.
+  Type the text, then press Escape to return to normal mode.
 hints:
-  - i enters insert mode before the cursor.
+  - i inserts before the cursor; a appends after it.
   - Type the text, then press Escape to finish.
 keyLegend:
   - "i"
+  - "a"
   - "Escape"
 tags:
   - "insert"

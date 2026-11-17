@@ -20,16 +20,16 @@ import {
 } from "../src/index.js";
 
 describe("content metadata", () => {
-  test("reports the seed slice and pinned engine compatibility", () => {
+  test("reports the first publish and pinned engine compatibility", () => {
     expect(CONTENT_VERSION).toBe("0.1.0");
     expect(CONTENT_SCHEMA_VERSION).toBe(1);
     expect(GENERATOR_VERSION).toBe(1);
     expect(ENGINE_RANGE).toBe(">=0.4.0 <0.5.0");
     expect(TESTED_ENGINE_VERSIONS).toEqual(["0.4.0"]);
     expect(CONTENT_BUILD_ID).toMatch(/^[0-9a-f]{64}$/);
-    expect(CONTENT_INFO.skillCount).toBe(4);
-    expect(CONTENT_INFO.lessonCount).toBe(4);
-    expect(CONTENT_INFO.templateCount).toBe(4);
+    expect(CONTENT_INFO.skillCount).toBe(12);
+    expect(CONTENT_INFO.lessonCount).toBe(14);
+    expect(CONTENT_INFO.templateCount).toBe(21);
   });
 });
 
@@ -41,8 +41,8 @@ describe("curriculum API", () => {
       "insert",
       "operators",
     ]);
-    expect(curriculum.groups.flatMap((group) => group.lessons)).toHaveLength(4);
-    expect(curriculum.skills).toHaveLength(4);
+    expect(curriculum.groups.flatMap((group) => group.lessons)).toHaveLength(14);
+    expect(curriculum.skills).toHaveLength(12);
     expect(curriculum.contentVersion).toBe("0.1.0");
   });
 
@@ -62,12 +62,31 @@ describe("curriculum API", () => {
   test("skills resolve with their lessons and prerequisites", () => {
     const word = getSkill("skill.motion.word");
     expect(word?.group).toBe("movement");
-    expect(word?.lessonIds).toEqual(["lesson.word-forward"]);
+    expect(word?.lessonIds).toEqual([
+      "lesson.word-forward",
+      "lesson.word-back",
+      "lesson.word-end",
+    ]);
 
     const remove = getSkill("skill.operator.delete");
     expect(remove?.prerequisites).toEqual(["skill.motion.word"]);
-    expect(getSkills()).toHaveLength(4);
+    expect(getSkills()).toHaveLength(12);
     expect(getSkill("skill.missing")).toBeNull();
+  });
+
+  test("the first-publish lessons and find targets are exposed", () => {
+    expect(getLesson("char-moves")?.skillIds).toEqual(["skill.motion.char"]);
+    expect(getLesson("insert-lines")?.skillIds).toEqual(["skill.insert.lines"]);
+    expect(getLesson("indent-line")?.skillIds).toEqual([
+      "skill.operator.indent",
+    ]);
+
+    const forward = generateInstance(
+      "template.find-char.forward",
+      "0000000000000001",
+    );
+    expect(forward.allowedKeys).toContain("-");
+    expect(forward.challengeType).toBe("move-to-target");
   });
 });
 

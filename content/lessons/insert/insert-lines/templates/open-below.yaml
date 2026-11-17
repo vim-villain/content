@@ -1,0 +1,52 @@
+id: template.insert-lines.open-below
+lesson: lesson.insert-lines
+order: 10
+status: active
+type: edit-to-match
+engine: ">=0.4.0 <0.5.0"
+title: Open below
+description: Open a line below the first word and type done.
+notes: |
+  Two single-word lines. The cursor starts on line 0 and o opens a line
+  below it, so the literal text done lands between the two words and the
+  target is line0, done, line1.
+generate:
+  - op: pick
+    name: words
+    pool: words.common
+    count: 2
+    unique: true
+    constraints:
+      length: { min: 3, max: 7 }
+      charset: ascii-lower
+  - op: line
+    name: line0
+    parts:
+      - ref: words.0
+        as: word
+  - op: line
+    name: line1
+    parts:
+      - ref: words.1
+        as: word
+  - op: buffer
+    name: initial
+    lines:
+      - ref: line0
+      - ref: line1
+  - op: buffer
+    name: target
+    lines:
+      - ref: line0
+      - text: "done"
+      - ref: line1
+initial:
+  buffer: { ref: initial }
+  cursor: { line: 0, at: line0.word, edge: start }
+goal:
+  kind: buffer
+  buffer: { ref: target }
+allowed: ["o", "d", "o", "n", "e", "Escape"]
+solution:
+  keys: ["o", "d", "o", "n", "e", "Escape"]
+par: 6

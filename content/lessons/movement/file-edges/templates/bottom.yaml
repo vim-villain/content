@@ -1,0 +1,51 @@
+id: template.file-edges.bottom
+lesson: lesson.file-edges
+order: 20
+status: active
+type: move-to-target
+engine: ">=0.4.0 <0.5.0"
+title: Last line
+description: Move from the first line to the last line.
+notes: |
+  Three single-word lines. The cursor starts on line 0 and the goal is
+  line 2 at column 0, so G is invariant under word substitution.
+generate:
+  - op: pick
+    name: words
+    pool: words.common
+    count: 3
+    unique: true
+    constraints:
+      length: { min: 3, max: 7 }
+      charset: ascii-lower
+  - op: line
+    name: line0
+    parts:
+      - ref: words.0
+        as: word
+  - op: line
+    name: line1
+    parts:
+      - ref: words.1
+        as: word
+  - op: line
+    name: line2
+    parts:
+      - ref: words.2
+        as: word
+  - op: buffer
+    name: buffer
+    lines:
+      - ref: line0
+      - ref: line1
+      - ref: line2
+initial:
+  buffer: { ref: buffer }
+  cursor: { line: 0, at: line0.word, edge: start }
+goal:
+  kind: cursor
+  cursor: { line: 2, at: line2.word, edge: start }
+allowed: ["g", "G", "Escape"]
+solution:
+  keys: ["G"]
+par: 1

@@ -1,0 +1,44 @@
+id: template.find-char.forward
+lesson: lesson.find-char
+order: 10
+status: active
+type: move-to-target
+engine: ">=0.4.0 <0.5.0"
+title: Find the dash forward
+description: Move forward from the first word to the dash between the words.
+notes: |
+  The line is two words joined by a literal dash: word1 + "-" + word2.
+  The cursor starts at column 0 and the dash span starts after the first
+  word, so f- is invariant under word substitution.
+generate:
+  - op: pick
+    name: words
+    pool: words.common
+    count: 2
+    unique: true
+    constraints:
+      length: { min: 3, max: 7 }
+      charset: ascii-lower
+  - op: line
+    name: line
+    parts:
+      - ref: words.0
+        as: first
+      - text: "-"
+        as: dash
+      - ref: words.1
+        as: second
+  - op: buffer
+    name: buffer
+    lines:
+      - ref: line
+initial:
+  buffer: { ref: buffer }
+  cursor: { line: 0, at: line.first, edge: start }
+goal:
+  kind: cursor
+  cursor: { line: 0, at: line.dash, edge: start }
+allowed: ["f", "-", "Escape"]
+solution:
+  keys: ["f", "-"]
+par: 2

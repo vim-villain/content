@@ -11,6 +11,16 @@ export interface ValidationTemplate {
 
 export const VALIDATION: readonly ValidationTemplate[] = [
   {
+    "templateId": "template.big-word.basic",
+    "lessonId": "lesson.big-word",
+    "status": "active",
+    "engineRange": ">=0.4.0 <0.5.0",
+    "solution": [
+      "W"
+    ],
+    "par": 1
+  },
+  {
     "templateId": "template.change-word.cw",
     "lessonId": "lesson.change-word",
     "status": "active",
@@ -27,6 +37,50 @@ export const VALIDATION: readonly ValidationTemplate[] = [
     "par": 7
   },
   {
+    "templateId": "template.char-moves.horizontal",
+    "lessonId": "lesson.char-moves",
+    "status": "active",
+    "engineRange": ">=0.4.0 <0.5.0",
+    "solution": [
+      "5",
+      "l"
+    ],
+    "par": 2
+  },
+  {
+    "templateId": "template.char-moves.vertical",
+    "lessonId": "lesson.char-moves",
+    "status": "active",
+    "engineRange": ">=0.4.0 <0.5.0",
+    "solution": [
+      "2",
+      "j"
+    ],
+    "par": 2
+  },
+  {
+    "templateId": "template.counts.word",
+    "lessonId": "lesson.counts",
+    "status": "active",
+    "engineRange": ">=0.4.0 <0.5.0",
+    "solution": [
+      "3",
+      "w"
+    ],
+    "par": 2
+  },
+  {
+    "templateId": "template.delete-word.dd",
+    "lessonId": "lesson.delete-word",
+    "status": "active",
+    "engineRange": ">=0.4.0 <0.5.0",
+    "solution": [
+      "d",
+      "d"
+    ],
+    "par": 2
+  },
+  {
     "templateId": "template.delete-word.dw",
     "lessonId": "lesson.delete-word",
     "status": "active",
@@ -36,6 +90,76 @@ export const VALIDATION: readonly ValidationTemplate[] = [
       "w"
     ],
     "par": 2
+  },
+  {
+    "templateId": "template.file-edges.bottom",
+    "lessonId": "lesson.file-edges",
+    "status": "active",
+    "engineRange": ">=0.4.0 <0.5.0",
+    "solution": [
+      "G"
+    ],
+    "par": 1
+  },
+  {
+    "templateId": "template.file-edges.top",
+    "lessonId": "lesson.file-edges",
+    "status": "active",
+    "engineRange": ">=0.4.0 <0.5.0",
+    "solution": [
+      "g",
+      "g"
+    ],
+    "par": 2
+  },
+  {
+    "templateId": "template.find-char.backward",
+    "lessonId": "lesson.find-char",
+    "status": "active",
+    "engineRange": ">=0.4.0 <0.5.0",
+    "solution": [
+      "F",
+      "-"
+    ],
+    "par": 2
+  },
+  {
+    "templateId": "template.find-char.forward",
+    "lessonId": "lesson.find-char",
+    "status": "active",
+    "engineRange": ">=0.4.0 <0.5.0",
+    "solution": [
+      "f",
+      "-"
+    ],
+    "par": 2
+  },
+  {
+    "templateId": "template.indent-line.shift",
+    "lessonId": "lesson.indent-line",
+    "status": "active",
+    "engineRange": ">=0.4.0 <0.5.0",
+    "solution": [
+      ">",
+      ">"
+    ],
+    "par": 2
+  },
+  {
+    "templateId": "template.insert-basic.append",
+    "lessonId": "lesson.insert-basic",
+    "status": "active",
+    "engineRange": ">=0.4.0 <0.5.0",
+    "solution": [
+      "a",
+      " ",
+      "d",
+      "o",
+      "n",
+      "e",
+      "Escape"
+    ],
+    "par": 7
   },
   {
     "templateId": "template.insert-basic.insert",
@@ -52,6 +176,79 @@ export const VALIDATION: readonly ValidationTemplate[] = [
       "Escape"
     ],
     "par": 7
+  },
+  {
+    "templateId": "template.insert-lines.open-above",
+    "lessonId": "lesson.insert-lines",
+    "status": "active",
+    "engineRange": ">=0.4.0 <0.5.0",
+    "solution": [
+      "O",
+      "d",
+      "o",
+      "n",
+      "e",
+      "Escape"
+    ],
+    "par": 6
+  },
+  {
+    "templateId": "template.insert-lines.open-below",
+    "lessonId": "lesson.insert-lines",
+    "status": "active",
+    "engineRange": ">=0.4.0 <0.5.0",
+    "solution": [
+      "o",
+      "d",
+      "o",
+      "n",
+      "e",
+      "Escape"
+    ],
+    "par": 6
+  },
+  {
+    "templateId": "template.line-edges.end",
+    "lessonId": "lesson.line-edges",
+    "status": "active",
+    "engineRange": ">=0.4.0 <0.5.0",
+    "solution": [
+      "$"
+    ],
+    "par": 1
+  },
+  {
+    "templateId": "template.line-edges.start",
+    "lessonId": "lesson.line-edges",
+    "status": "active",
+    "engineRange": ">=0.4.0 <0.5.0",
+    "solution": [
+      "^"
+    ],
+    "par": 1
+  },
+  {
+    "templateId": "template.word-back.basic",
+    "lessonId": "lesson.word-back",
+    "status": "active",
+    "engineRange": ">=0.4.0 <0.5.0",
+    "solution": [
+      "b",
+      "b"
+    ],
+    "par": 2
+  },
+  {
+    "templateId": "template.word-end.basic",
+    "lessonId": "lesson.word-end",
+    "status": "active",
+    "engineRange": ">=0.4.0 <0.5.0",
+    "solution": [
+      "e",
+      "e",
+      "e"
+    ],
+    "par": 3
   },
   {
     "templateId": "template.word-forward.basic",

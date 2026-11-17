@@ -1,0 +1,56 @@
+id: template.delete-word.dd
+lesson: lesson.delete-word
+order: 20
+status: active
+type: edit-to-match
+engine: ">=0.4.0 <0.5.0"
+title: Delete the middle line
+description: Remove the second line with the delete operator.
+notes: |
+  Three single-word lines. The cursor starts on line 1. dd deletes the
+  current line, so the target is line0 followed by line2.
+generate:
+  - op: pick
+    name: words
+    pool: words.common
+    count: 3
+    unique: true
+    constraints:
+      length: { min: 3, max: 7 }
+      charset: ascii-lower
+  - op: line
+    name: line0
+    parts:
+      - ref: words.0
+        as: word
+  - op: line
+    name: line1
+    parts:
+      - ref: words.1
+        as: word
+  - op: line
+    name: line2
+    parts:
+      - ref: words.2
+        as: word
+  - op: buffer
+    name: initial
+    lines:
+      - ref: line0
+      - ref: line1
+      - ref: line2
+  - op: buffer
+    name: target
+    lines:
+      - ref: line0
+      - ref: line2
+initial:
+  buffer: { ref: initial }
+  cursor: { line: 1, at: line1.word, edge: start }
+goal:
+  kind: buffer
+  buffer: { ref: target }
+allowed: ["d", "Escape"]
+solution:
+  keys: ["d", "d"]
+par: 2

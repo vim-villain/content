@@ -1,0 +1,12 @@
+id: skill.motion.char
+title: Character motions
+group: movement
+order: 10
+summary: Move the cursor with h, j, k, and l.
+description: |
+  The four directional motions move one character or line at a time.
+  h moves left, l moves right, j moves down, and k moves up.
+tags:
+  - "motion"
+  - "char"
+status: active

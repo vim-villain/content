@@ -214,11 +214,16 @@ export function resolveCursor(
   const span = spec.at;
   let base: number;
   if (span !== undefined) {
-    base = spanStart(span, facts) + (spec.edge === "last" ? -1 : 0);
-    if (spec.edge === "last" && spanIsEmpty(span, facts)) {
-      throw new GenerationInvariantError(
-        `cursor edge "last" on empty span "${span.fact}.${span.span}"`,
-      );
+    const resolved = lookupSpan(span, facts);
+    if (spec.edge === "last") {
+      if (resolved.start === resolved.end) {
+        throw new GenerationInvariantError(
+          `cursor edge "last" on empty span "${span.fact}.${span.span}"`,
+        );
+      }
+      base = resolved.end - 1;
+    } else {
+      base = resolved.start;
     }
   } else if (spec.col !== undefined) {
     base = spec.col;
@@ -245,15 +250,6 @@ export function resolveCursor(
     );
   }
   return { line, col };
-}
-
-function spanStart(ref: SpanRef, facts: Map<string, Fact>): number {
-  return lookupSpan(ref, facts).start;
-}
-
-function spanIsEmpty(ref: SpanRef, facts: Map<string, Fact>): boolean {
-  const span = lookupSpan(ref, facts);
-  return span.start === span.end;
 }
 
 function lookupSpan(ref: SpanRef, facts: Map<string, Fact>): Span {

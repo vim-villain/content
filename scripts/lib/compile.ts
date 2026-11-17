@@ -44,7 +44,7 @@ import {
   type SkillInput,
   type TemplateInput,
 } from "./schema.js";
-import { MOTION_TOKENS } from "./tokens.js";
+import { MOTION_TOKENS, SAFE_FIND_TARGETS } from "./tokens.js";
 import { pointer } from "./yaml.js";
 
 export const CONTENT_SCHEMA_VERSION = 1;
@@ -1240,7 +1240,9 @@ function compileTemplate(
 
   if (value.type === "move-to-target") {
     for (const token of allowedKeys) {
-      if (!MOTION_TOKENS.has(token)) {
+      // f/F take a following target character, which is a safe token on its
+      // own even though it is not a motion (§4.8).
+      if (!MOTION_TOKENS.has(token) && !SAFE_FIND_TARGETS.has(token)) {
         collector.add(
           "E_ALLOWED",
           rel,
